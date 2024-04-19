@@ -5,22 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevTask"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
-    <Grid>
+        Title="MainWindow" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized">
+
+    <Grid Margin="30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Registration Form -->
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <Viewbox Grid.Column="0" Grid.Row="0" MaxWidth="719" MaxHeight="129" HorizontalAlignment="Left">
+            <Label Grid.Column="0" Grid.Row="0" Content="Добро пожаловать!" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="-10"/>
+        </Viewbox>
+        
+        <!-- Регистрация -->
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            
             <Label Content="Имя пользователя" />
             <TextBox />
 
@@ -33,13 +36,14 @@
             <Button Content="Зарегистрироваться" Margin="0,20,0,0" />
             <Button Content="По логину" />
 
-            <Label Content="Создать аккаунт с помощью:" />
-            <!-- Add Google sign-in button here -->
+            
         </StackPanel>
 
-        <!-- Profile Picture Placeholder -->
-        <Border Grid.Column="2" Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Width="100" Height="100">
-            <TextBlock Text="X" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="48" />
-        </Border>
+        <!-- Изображение -->
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Viewbox>
+                <Label Content="Img" FontSize="50px"/>
+            </Viewbox>
+        </StackPanel>
     </Grid>
 </Window>

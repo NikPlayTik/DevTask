@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:DevTask"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Label" x:Key="HeaderText">
+            <Setter Property="FontFamily" Value="Cygre Black"/>
+            <Setter Property="Foreground" Value="#E09C3F"/>
+        </Style>
     </Application.Resources>
 </Application>
