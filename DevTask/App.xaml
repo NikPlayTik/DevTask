@@ -8,5 +8,11 @@
             <Setter Property="FontFamily" Value="Cygre Black"/>
             <Setter Property="Foreground" Value="#E09C3F"/>
         </Style>
+
+        <Style TargetType="Label" x:Key="DefaultText">
+            <Setter Property="FontFamily" Value="Cygre Medium"/>
+            <Setter Property="Foreground" Value="#E09C3F"/>
+            <Setter Property="FontSize" Value="40"/>
+        </Style>
     </Application.Resources>
 </Application>

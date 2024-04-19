@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevTask"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized">
+        Title="MainWindow" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
 
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,27 +23,37 @@
         
         <!-- Регистрация -->
         <StackPanel Grid.Column="0" Grid.Row="1">
+
+            <Viewbox HorizontalAlignment="Left" MaxWidth="355" MaxHeight="65">
+                <Label Content="Имя пользователя" Style="{StaticResource DefaultText}" HorizontalAlignment="Left" Padding="-10"/>
+            </Viewbox>
             
-            <Label Content="Имя пользователя" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <TextBox Grid.Row="1"/>
+            </Grid>
+
+            <Label Content="Электронная почта" Style="{StaticResource DefaultText}"/>
             <TextBox />
 
-            <Label Content="Электронная почта" />
-            <TextBox />
-
-            <Label Content="Пароль" />
+            <Label Content="Пароль" Style="{StaticResource DefaultText}"/>
             <PasswordBox />
 
-            <Button Content="Зарегистрироваться" Margin="0,20,0,0" />
+            <Button Content="Зарегистрироваться" Margin="0,20,0,0" Padding="0"/>
             <Button Content="По логину" />
 
             
         </StackPanel>
 
         <!-- Изображение -->
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <Viewbox>
-                <Label Content="Img" FontSize="50px"/>
-            </Viewbox>
-        </StackPanel>
+        <Viewbox Grid.Column="1" Grid.Row="1">
+            <Grid>
+                <Image Source="Resources/Image-Window/Window-Registration/Ellipse.png" Width="855" Height="855"/>
+                <Image Source="Resources/Image-Window/Window-Registration/Illustration-registration.png" Width="673" Height="673"/>
+            </Grid>
+        </Viewbox>
     </Grid>
 </Window>

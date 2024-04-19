@@ -8,4 +8,39 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Cygre-Black.ttf" />
+    <None Remove="Resources\Fonts\Cygre-Bold.ttf" />
+    <None Remove="Resources\Fonts\Cygre-ExtraBold.ttf" />
+    <None Remove="Resources\Fonts\Cygre-Light.ttf" />
+    <None Remove="Resources\Fonts\Cygre-Medium.ttf" />
+    <None Remove="Resources\Fonts\Cygre-Regular.ttf" />
+    <None Remove="Resources\Fonts\Cygre-SemiBold.ttf" />
+    <None Remove="Resources\Fonts\Cygre-Thin.ttf" />
+    <None Remove="Resources\Fonts\Inter.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+    <None Remove="Resources\Fonts\OpenSans-Semibold.ttf" />
+    <None Remove="Resources\Image-Window\Window-Registration\Ellipse.png" />
+    <None Remove="Resources\Image-Window\Window-Registration\Illustration-registration.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Cygre-Black.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-Bold.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-ExtraBold.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-Light.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-Medium.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-Regular.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-SemiBold.ttf" />
+    <Resource Include="Resources\Fonts\Cygre-Thin.ttf" />
+    <Resource Include="Resources\Fonts\Inter.ttf" />
+    <Resource Include="Resources\Fonts\OpenSans-Regular.ttf" />
+    <Resource Include="Resources\Fonts\OpenSans-Semibold.ttf" />
+    <Resource Include="Resources\Image-Window\Window-Registration\Illustration-registration.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Image-Window\Window-Registration\Ellipse.png" />
+  </ItemGroup>
+
 </Project>
