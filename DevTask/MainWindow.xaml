@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Регистрация" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
 
+    <!-- Основная сетка -->
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -17,11 +18,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Приветственный текст -->
         <Viewbox Grid.Column="0" Grid.Row="0" MaxWidth="719" MaxHeight="129" HorizontalAlignment="Left">
             <Label Grid.Column="0" Grid.Row="0" Content="Добро пожаловать!" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="-10"/>
         </Viewbox>
 
-        <!-- Регистрация -->
+        <!-- Раздел регистрации -->
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
@@ -33,6 +35,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Поле ввода имени пользователя -->
             <Viewbox HorizontalAlignment="Left" MaxWidth="355" MaxHeight="65" Grid.Row="0" Margin="3">
                 <Label Content="Имя пользователя" Style="{StaticResource DefaultText}" Padding="-10"/>
             </Viewbox>
@@ -41,6 +44,7 @@
                 <TextBox Style="{StaticResource CustomTextBox}" MaxLength="50" Width="500"/>
             </Viewbox>
 
+            <!-- Поле ввода электронной почты -->
             <Viewbox HorizontalAlignment="Left" MaxWidth="376" MaxHeight="65" Grid.Row="2" Margin="3">
                 <Label Content="Электронная почта" Style="{StaticResource DefaultText}" Padding="-10"/>
             </Viewbox>
@@ -49,6 +53,7 @@
                 <TextBox Style="{StaticResource CustomTextBox}" Width="500"/>
             </Viewbox>
 
+            <!-- Поле ввода пароля -->
             <Viewbox HorizontalAlignment="Left" MaxWidth="144" MaxHeight="65" Grid.Row="4" Margin="3">
                 <Label Content="Пароль" Style="{StaticResource DefaultText}" Padding="-10"/>
             </Viewbox>
@@ -57,6 +62,7 @@
                 <PasswordBox Style="{StaticResource CustomPasswordBox}" Width="500"/>
             </Viewbox>
 
+            <!-- Кнопки регистрации и входа -->
             <Grid Grid.Row="6" Margin="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
