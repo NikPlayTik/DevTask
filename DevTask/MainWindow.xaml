@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevTask"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
+        Title="Регистрация" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
 
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
@@ -20,36 +20,68 @@
         <Viewbox Grid.Column="0" Grid.Row="0" MaxWidth="719" MaxHeight="129" HorizontalAlignment="Left">
             <Label Grid.Column="0" Grid.Row="0" Content="Добро пожаловать!" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="-10"/>
         </Viewbox>
-        
-        <!-- Регистрация -->
-        <StackPanel Grid.Column="0" Grid.Row="1">
 
-            <Viewbox HorizontalAlignment="Left" MaxWidth="355" MaxHeight="65">
-                <Label Content="Имя пользователя" Style="{StaticResource DefaultText}" HorizontalAlignment="Left" Padding="-10"/>
+        <!-- Регистрация -->
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Viewbox HorizontalAlignment="Left" MaxWidth="355" MaxHeight="65" Grid.Row="0" Margin="3">
+                <Label Content="Имя пользователя" Style="{StaticResource DefaultText}" Padding="-10"/>
             </Viewbox>
-            
-            <Grid>
+
+            <Viewbox Grid.Row="1" HorizontalAlignment="Left">
+                <TextBox Style="{StaticResource CustomTextBox}" MaxLength="50" Width="500"/>
+            </Viewbox>
+
+            <Viewbox HorizontalAlignment="Left" MaxWidth="376" MaxHeight="65" Grid.Row="2" Margin="3">
+                <Label Content="Электронная почта" Style="{StaticResource DefaultText}" Padding="-10"/>
+            </Viewbox>
+
+            <Viewbox Grid.Row="3" HorizontalAlignment="Left">
+                <TextBox Style="{StaticResource CustomTextBox}" Width="500"/>
+            </Viewbox>
+
+            <Viewbox HorizontalAlignment="Left" MaxWidth="144" MaxHeight="65" Grid.Row="4" Margin="3">
+                <Label Content="Пароль" Style="{StaticResource DefaultText}" Padding="-10"/>
+            </Viewbox>
+
+            <Viewbox Grid.Row="5" HorizontalAlignment="Left">
+                <PasswordBox Style="{StaticResource CustomPasswordBox}" Width="500"/>
+            </Viewbox>
+
+            <Grid Grid.Row="6" Margin="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-            
-                <TextBox Grid.Row="1"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Style="{StaticResource SelectedButtonStyle}" MaxWidth="450" MaxHeight="138">
+                    <Viewbox MaxWidth="450" MaxHeight="138">
+                        <TextBlock Text="Зарегистрироваться" Padding="10"/>
+                    </Viewbox>
+                </Button>
+
+                <Button HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Style="{StaticResource UnselectedButtonStyle}" MaxWidth="313" MaxHeight="138">
+                    <Viewbox MaxWidth="313" MaxHeight="138">
+                        <TextBlock Text="По логину" Padding="10"/>
+                    </Viewbox>
+                </Button>
             </Grid>
-
-            <Label Content="Электронная почта" Style="{StaticResource DefaultText}"/>
-            <TextBox />
-
-            <Label Content="Пароль" Style="{StaticResource DefaultText}"/>
-            <PasswordBox />
-
-            <Button Content="Зарегистрироваться" Margin="0,20,0,0" Padding="0"/>
-            <Button Content="По логину" />
-
-            
-        </StackPanel>
+        </Grid>
 
         <!-- Изображение -->
-        <Viewbox Grid.Column="1" Grid.Row="1">
+        <Viewbox Grid.Column="1" Grid.Row="1" Margin="10">
             <Grid>
                 <Image Source="Resources/Image-Window/Window-Registration/Ellipse.png" Width="855" Height="855"/>
                 <Image Source="Resources/Image-Window/Window-Registration/Illustration-registration.png" Width="673" Height="673"/>
