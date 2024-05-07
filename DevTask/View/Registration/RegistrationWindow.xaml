@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevTask.View.Registration"
         mc:Ignorable="d"
-                Title="Регистрация" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
+        Title="Регистрация" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
 
     <!-- Основная сетка -->
     <Grid Margin="30">
@@ -73,15 +73,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Click="RegisterUser" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Style="{StaticResource SelectedButtonStyle}" MaxWidth="450" MaxHeight="138" Margin="10">
+                <Button Click="RegisterButton_Click" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Style="{StaticResource SelectedButtonStyle}" MaxWidth="450" MaxHeight="138" Margin="10">
                     <Viewbox MaxWidth="450" MaxHeight="138">
                         <TextBlock Text="Зарегистрироваться" Padding="10"/>
                     </Viewbox>
                 </Button>
 
-                <Button HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Style="{StaticResource UnselectedButtonStyle}" MaxWidth="313" MaxHeight="138" Margin="10">
+                <Button x:Name="AuthButton" Click="AuthButton_Click" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Style="{StaticResource UnselectedButtonStyle}" MaxWidth="313" MaxHeight="138" Margin="10">
                     <Viewbox MaxWidth="313" MaxHeight="138">
-                        <TextBlock Text="Войти" Padding="10"/>
+                        <TextBlock Text="Войти по логину" Padding="10"/>
                     </Viewbox>
                 </Button>
             </Grid>

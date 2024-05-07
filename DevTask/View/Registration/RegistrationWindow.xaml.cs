@@ -1,4 +1,5 @@
-﻿using Firebase.Database;
+﻿using DevTask.View.Auth;
+using Firebase.Database;
 using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace DevTask.View.Registration
             _client = new FirebaseClient(FirebaseAppUri);
         }
 
-        private async void RegisterUser(object sender, RoutedEventArgs e)
+        private async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             var username = UsernameTextBox.Text;
             var email = EmailTextBox.Text;
@@ -53,11 +54,11 @@ namespace DevTask.View.Registration
                 return;
             }
 
-            var user = new 
-            { 
-                Username = username, 
-                Email = email, 
-                Password = password 
+            var user = new
+            {
+                Username = username,
+                Email = email,
+                Password = password
             };
 
             await _client
@@ -66,6 +67,19 @@ namespace DevTask.View.Registration
 
             // Сообщение об успешной регистрации
             CustomDialog.CustomDialog.Show("Вы успешно зарегистрировались!", Brushes.Green);
+        }
+
+        // Добавить переход в окно
+        private void AuthButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Создание нового окна входа
+            AuthPage authPage = new AuthPage();
+
+            //// Отображение окна входа
+            //AuthPage.Show();
+
+            // Закрытие текущего окна
+            this.Close();
         }
     }
 }

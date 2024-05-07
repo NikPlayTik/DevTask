@@ -156,7 +156,6 @@
             </Setter>
         </Style>
 
-
         <!-- Стиль для кнопки в диалоговом окне -->
         <Style x:Key="DialogButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0D2746"/>

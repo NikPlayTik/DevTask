@@ -19,7 +19,7 @@ namespace DevTask.View.CustomDialog
         public CustomDialog(string message, Brush messageColor)
         {
             InitializeComponent();
-            MessageLabel.Content = message;
+            MessageLabel.Text = message;
             MessageLabel.Foreground = messageColor;
         }
         public CustomDialog()
