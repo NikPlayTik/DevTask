@@ -15,7 +15,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-//using DevTask.View.CustomDialog;
 
 namespace DevTask.View.Registration
 {
@@ -75,8 +74,14 @@ namespace DevTask.View.Registration
             // Создание нового окна входа
             AuthPage authPage = new AuthPage();
 
-            //// Отображение окна входа
-            //AuthPage.Show();
+            // Создание нового окна и установка AuthPage как его содержимого
+            Window window = new Window
+            {
+                Content = authPage
+            };
+
+            // Отображение нового окна
+            window.Show();
 
             // Закрытие текущего окна
             this.Close();
