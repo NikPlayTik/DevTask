@@ -53,6 +53,19 @@ namespace DevTask.View.Registration
                 return;
             }
 
+            // Получение списка всех пользователей
+            var users = await _client
+                .Child("Users")
+                .OnceAsync<dynamic>();
+
+            // Проверка наличия пользователя с таким именем или почтой
+            if (users.Any(user => user.Object.Username == username || user.Object.Email == email))
+            {
+                // Обработка ситуации, когда пользователь с таким именем или почтой уже существует
+                CustomDialog.CustomDialog.Show("Пользователь с таким именем или почтой уже существует!", Brushes.Red);
+                return;
+            }
+
             var user = new
             {
                 Username = username,
