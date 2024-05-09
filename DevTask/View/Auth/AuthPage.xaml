@@ -28,6 +28,9 @@
         <!-- Кнопка назад -->
         <Viewbox MinHeight="50" MaxHeight="50" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3">
             <Button Click="RegisterButton_Click" Style="{StaticResource BackButtonStyle}" MinHeight="50" MaxHeight="50" MinWidth="50" MaxWidth="50">
+                <Viewbox>
+                    <TextBlock Text="→" Margin="0,3,0,0"/>
+                </Viewbox>
             </Button>
         </Viewbox>
 
