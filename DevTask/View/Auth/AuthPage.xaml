@@ -1,14 +1,99 @@
-﻿<Page x:Class="DevTask.View.Auth.AuthPage"
+﻿<Window x:Class="DevTask.View.Auth.AuthPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DevTask.View.Auth"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Вход по логину" MinHeight="400" MinWidth="600" Width="1920" Height="1080" Background="#0D2746">
+      mc:Ignorable="d"
+      Title="Вход по логину" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
 
-    <Grid>
-        
+    <!-- Основная сетка -->
+    <Grid Margin="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Приветственный текст -->
+        <Viewbox Grid.Column="0" Grid.Row="0" MaxWidth="1019" MaxHeight="129" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+            <Label Grid.Column="0" Grid.Row="0" Content="Рады видеть вас снова!" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="-10"/>
+        </Viewbox>
+
+        <!-- Кнопка назад -->
+        <Viewbox MinHeight="50" MaxHeight="50" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3">
+            <Button Click="RegisterButton_Click" Style="{StaticResource BackButtonStyle}" MinHeight="50" MaxHeight="50" MinWidth="50" MaxWidth="50">
+            </Button>
+        </Viewbox>
+
+        <!-- Раздел входа -->
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Поле ввода имени пользователя -->
+            <Viewbox HorizontalAlignment="Left" MaxWidth="355" MinHeight="15" MaxHeight="65" Grid.Row="0">
+                <Label Content="Имя пользователя" Style="{StaticResource DefaultText}" MinHeight="15" MaxHeight="65" Margin="-5,0,0,0"/>
+            </Viewbox>
+
+            <Viewbox Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBox x:Name="UsernameTextBox" Style="{StaticResource CustomTextBox}" MaxLength="50" Width="600" Margin="0,0,0,0"/>
+            </Viewbox>
+
+            <!-- Поле ввода пароля -->
+            <Viewbox HorizontalAlignment="Left" MaxWidth="150" MaxHeight="65" Grid.Row="2" Margin="3">
+                <Label Content="Пароль" Style="{StaticResource DefaultText}" Margin="-6,0,0,0"/>
+            </Viewbox>
+
+            <Viewbox Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <PasswordBox x:Name="PasswordTextBox" Style="{StaticResource CustomPasswordBox}" Width="600" Margin="0,0,0,0"/>
+            </Viewbox>
+
+            <!-- Кнопки входа и регистрации -->
+            <Grid Grid.Row="4" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.65*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox MinHeight="138" MaxHeight="138" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,30,0">
+                    <Button Click="LoginButton_Click" Style="{StaticResource SelectedButtonStyle}" FontSize="10" MaxHeight="138" MinHeight="138" MaxWidth="450" MinWidth="450">
+                        <Viewbox>
+                            <TextBlock Text="Войти" Padding="10"/>
+                        </Viewbox>
+                    </Button>
+                </Viewbox>
+
+                <Viewbox MinHeight="138" MaxHeight="138" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button Click="ForgotPasswordButton_Click" Style="{StaticResource UnselectedButtonStyle}" FontSize="10" MaxHeight="138" MinHeight="138" MaxWidth="313" MinWidth="313">
+                        <Viewbox>
+                            <TextBlock Text="Забыли пароль" Padding="10"/>
+                        </Viewbox>
+                    </Button>
+                </Viewbox>
+            </Grid>
+        </Grid>
+
+        <!-- Изображение -->
+        <Viewbox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="10,10,10,10">
+            <Grid>
+                <Image Source="/Model/Resources/Image-Window/Window-Auth/Triangle.png" Width="1028" Height="810"/>
+                <Image Source="/Model/Resources/Image-Window/Window-Auth/Finger.png" Width="650" Height="550" Margin="260,180,118,180"/>
+            </Grid>
+        </Viewbox>
     </Grid>
-</Page>
+</Window>
+

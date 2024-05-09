@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevTask.View.Registration"
         mc:Ignorable="d"
+        d:DesignHeight="1080" d:DesignWidth="1920"
         Title="Регистрация" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
 
     <!-- Основная сетка -->
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="464*"/>
-            <ColumnDefinition Width="465*"/>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -20,12 +21,12 @@
         </Grid.RowDefinitions>
 
         <!-- Приветственный текст -->
-        <Viewbox Grid.Column="0" Grid.Row="0" MaxWidth="719" MaxHeight="129" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+        <Viewbox Grid.Column="0" Grid.Row="0" MaxWidth="1019" MaxHeight="129" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <Label Grid.Column="0" Grid.Row="0" Content="Добро пожаловать!" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="-10"/>
         </Viewbox>
 
         <!-- Раздел регистрации -->
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,167,0,0" Grid.RowSpan="2">
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.5*"/>
@@ -70,20 +71,24 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.65*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Click="RegisterButton_Click" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Style="{StaticResource SelectedButtonStyle}" MaxWidth="450" MaxHeight="138" Margin="10">
-                    <Viewbox MaxWidth="450" MaxHeight="138">
-                        <TextBlock Text="Зарегистрироваться" Padding="10"/>
-                    </Viewbox>
-                </Button>
+                <Viewbox MinHeight="138" MaxHeight="138" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,30,0">
+                    <Button Click="RegisterButton_Click" Style="{StaticResource SelectedButtonStyle}" MaxHeight="138" MinHeight="138" MaxWidth="450" MinWidth="450">
+                        <Viewbox>
+                            <TextBlock Text="Зарегистрироваться" Padding="10"/>
+                        </Viewbox>
+                    </Button>
+                </Viewbox>
 
-                <Button x:Name="AuthButton" Click="AuthButton_Click" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" Style="{StaticResource UnselectedButtonStyle}" MaxWidth="313" MaxHeight="138" Margin="10">
-                    <Viewbox MaxWidth="313" MaxHeight="138">
-                        <TextBlock Text="Войти по логину" Padding="10"/>
-                    </Viewbox>
-                </Button>
+                <Viewbox MinHeight="138" MaxHeight="138" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button Click="AuthButton_Click" Style="{StaticResource UnselectedButtonStyle}" FontSize="7" MaxHeight="138" MinHeight="138" MaxWidth="313" MinWidth="313">
+                        <Viewbox>
+                            <TextBlock Text="Войти по логину" Padding="10"/>
+                        </Viewbox>
+                    </Button>
+                </Viewbox>
             </Grid>
         </Grid>
 

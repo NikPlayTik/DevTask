@@ -20,8 +20,14 @@
     <None Remove="Model\Resources\Fonts\Inter.ttf" />
     <None Remove="Model\Resources\Fonts\OpenSans-Regular.ttf" />
     <None Remove="Model\Resources\Fonts\OpenSans-Semibold.ttf" />
+    <None Remove="Model\Resources\Image-Window\Window-Auth\Finger.png" />
+    <None Remove="Model\Resources\Image-Window\Window-Auth\Triangle.png" />
     <None Remove="Model\Resources\Image-Window\Window-Registration\Ellipse.png" />
     <None Remove="Model\Resources\Image-Window\Window-Registration\Illustration-registration.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Model\Resources\Image-Window\Window-Auth\Finger.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +51,7 @@
     <Resource Include="Model\Resources\Fonts\Inter.ttf" />
     <Resource Include="Model\Resources\Fonts\OpenSans-Regular.ttf" />
     <Resource Include="Model\Resources\Fonts\OpenSans-Semibold.ttf" />
+    <Resource Include="Model\Resources\Image-Window\Window-Auth\Triangle.png" />
     <Resource Include="Model\Resources\Image-Window\Window-Registration\Illustration-registration.png" />
   </ItemGroup>
 

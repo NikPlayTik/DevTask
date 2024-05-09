@@ -90,7 +90,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="border" 
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                            To="Red" Duration="0:0:0.5"/>
+                                            To="#e5ac5e" Duration="0:0:0.5"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
@@ -136,7 +136,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="border" 
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                            To="Red" Duration="0:0:0.5"/>
+                                            To="#0e269c" Duration="0:0:0.5"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
@@ -146,6 +146,51 @@
                                             <ColorAnimation Storyboard.TargetName="border" 
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
                                             To="#0D2746" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для выделенной кнопки "Назад" -->
+        <Style x:Key="BackButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#E09C3F"/>
+            <Setter Property="Foreground" Value="#0D2746"/>
+            <Setter Property="BorderBrush" Value="#E09C3F"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontFamily" Value="Cygre Medium"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="50">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" 
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                    To="#e5ac5e" Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border" 
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                    To="#E09C3F" Duration="0:0:0.3"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
@@ -182,7 +227,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="border" 
                                                     Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                                    To="Red" Duration="0:0:0.5"/>
+                                                    To="#e5ac5e" Duration="0:0:0.5"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>

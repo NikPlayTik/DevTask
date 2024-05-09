@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevTask.View.Registration;
+using Firebase.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +17,55 @@ using System.Windows.Shapes;
 
 namespace DevTask.View.Auth
 {
-    /// <summary>
-    /// Логика взаимодействия для AuthPage.xaml
-    /// </summary>
-    public partial class AuthPage : Page
+    public partial class AuthPage : Window
     {
+        private const string FirebaseAppUri = "https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/";
+        private FirebaseClient _client;
+
         public AuthPage()
         {
             InitializeComponent();
+            _client = new FirebaseClient(FirebaseAppUri);
+        }
+
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            var username = UsernameTextBox.Text;
+            var password = PasswordTextBox.Password;
+
+            // Получение списка всех пользователей
+            var users = await _client
+                .Child("Users")
+                .OnceAsync<dynamic>();
+
+            // Проверка наличия пользователя с таким именем и паролем
+            if (users.Any(user => user.Object.Username == username && user.Object.Password == password))
+            {
+                // Обработка ситуации, когда пользователь с таким именем и паролем найден
+                CustomDialog.CustomDialog.Show("Вы успешно вошли в систему!", Brushes.Green);
+            }
+            else
+            {
+                // Обработка ситуации, когда пользователь с таким именем и паролем не найден
+                CustomDialog.CustomDialog.Show("Неверное имя пользователя или пароль!", Brushes.Red);
+            }
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Создание нового окна регистрации
+            RegistrationWindow registrationWindow = new RegistrationWindow();
+
+            // Отображение нового окна
+            registrationWindow.Show();
+
+            // Закрытие текущего окна
+            Close();
+        }
+
+        private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            CustomDialog.CustomDialog.Show("Фифу тебе, а не восстановление пароля)", Brushes.Green);
         }
     }
 }

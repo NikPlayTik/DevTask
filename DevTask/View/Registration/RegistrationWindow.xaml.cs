@@ -84,20 +84,14 @@ namespace DevTask.View.Registration
         // Добавить переход в окно
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            // Создание нового окна входа
+            // Создание нового окна авторизации
             AuthPage authPage = new AuthPage();
 
-            // Создание нового окна и установка AuthPage как его содержимого
-            Window window = new Window
-            {
-                Content = authPage
-            };
-
             // Отображение нового окна
-            window.Show();
+            authPage.Show();
 
             // Закрытие текущего окна
-            this.Close();
+            Close();
         }
     }
 }
