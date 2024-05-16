@@ -18,15 +18,17 @@ using System.Windows.Shapes;
 
 namespace DevTask.View.Registration
 {
-    public partial class RegistrationWindow : Window
+    public partial class RegistrationPage : Page
     {
         private const string FirebaseAppUri = "https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/";
         private FirebaseClient _client;
+        private Frame _mainFrame;
 
-        public RegistrationWindow()
+        public RegistrationPage(Frame mainFrame)
         {
             InitializeComponent();
             _client = new FirebaseClient(FirebaseAppUri);
+            _mainFrame = mainFrame;
         }
 
         private async void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -84,14 +86,7 @@ namespace DevTask.View.Registration
         // Добавить переход в окно
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
-            // Создание нового окна авторизации
-            AuthPage authPage = new AuthPage();
-
-            // Отображение нового окна
-            authPage.Show();
-
-            // Закрытие текущего окна
-            Close();
+            _mainFrame.Content = new AuthPage(_mainFrame);
         }
     }
 }

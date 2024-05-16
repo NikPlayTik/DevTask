@@ -1,11 +1,11 @@
-﻿<Window x:Class="DevTask.View.Auth.AuthPage"
+﻿<Page x:Class="DevTask.View.Auth.AuthPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DevTask.View.Auth"
       mc:Ignorable="d"
-      Title="Вход по логину" MinHeight="400" MinWidth="600" Width="1920" Height="1080" WindowState="Maximized" Background="#0D2746">
+      Title="Вход по логину" MinHeight="400" MinWidth="600" Width="1920" Height="1080" Background="#0D2746">
 
     <!-- Основная сетка -->
     <Grid Margin="30">
@@ -98,5 +98,5 @@
             </Grid>
         </Viewbox>
     </Grid>
-</Window>
+</Page>
 

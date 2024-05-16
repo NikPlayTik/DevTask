@@ -17,15 +17,17 @@ using System.Windows.Shapes;
 
 namespace DevTask.View.Auth
 {
-    public partial class AuthPage : Window
+    public partial class AuthPage : Page
     {
         private const string FirebaseAppUri = "https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/";
         private FirebaseClient _client;
+        private Frame _mainFrame;
 
-        public AuthPage()
+        public AuthPage(Frame mainFrame)
         {
             InitializeComponent();
             _client = new FirebaseClient(FirebaseAppUri);
+            _mainFrame = mainFrame;
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -53,14 +55,7 @@ namespace DevTask.View.Auth
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            // Создание нового окна регистрации
-            RegistrationWindow registrationWindow = new RegistrationWindow();
-
-            // Отображение нового окна
-            registrationWindow.Show();
-
-            // Закрытие текущего окна
-            Close();
+            _mainFrame.Content = new RegistrationPage(_mainFrame);
         }
 
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
