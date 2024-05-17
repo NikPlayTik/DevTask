@@ -1,0 +1,68 @@
+﻿<Page x:Class="DevTask.View.WorkingField.WorkingField"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DevTask.View.WorkingField"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      MinHeight="400" MinWidth="600" Width="1920" Height="1080" Background="#0D2746">
+
+    <Grid Margin="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="UsernameTextBlock" Grid.Column="1" Grid.Row="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+        <!-- Профиль -->
+        <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+            <Border Width="78" Height="78" Background="Gray" CornerRadius="50" Margin="0,0,0,0">
+                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Viewbox>
+
+        <!-- Заголовок "Доброе -утро- -день- -вечер- -ночи-," "Никнейм"-->
+        <Viewbox Grid.Column="1" Grid.Row="0" MinWidth="1085" MinHeight="78" MaxWidth="1085" MaxHeight="78" HorizontalAlignment="Left">
+            <Label Grid.Column="0" Grid.Row="0" Content="*Добрый вечер,* *NikitaTest*" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="2"/>
+        </Viewbox>
+
+        <!-- Календарь -->
+        <Viewbox Grid.Column="0" Grid.Row="1" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
+                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Viewbox>
+
+        <!-- Все задачи -->
+        <Viewbox Grid.Column="0" Grid.Row="2" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
+                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Viewbox>
+
+        <!-- Мои задачи -->
+        <Viewbox Grid.Column="0" Grid.Row="3" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
+                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Viewbox>
+
+        <!-- Передача задачи -->
+        <Viewbox Grid.Column="0" Grid.Row="4" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
+                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </Viewbox>
+    </Grid>
+</Page>

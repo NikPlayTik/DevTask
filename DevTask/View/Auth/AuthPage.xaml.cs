@@ -1,19 +1,11 @@
 ﻿using DevTask.View.Registration;
+using DevTask.View.WorkingField;
 using Firebase.Database;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DevTask.View.Auth
 {
@@ -45,6 +37,15 @@ namespace DevTask.View.Auth
             {
                 // Обработка ситуации, когда пользователь с таким именем и паролем найден
                 CustomDialog.CustomDialog.Show("Вы успешно вошли в систему!", Brushes.Green);
+
+                // Получение имени пользователя из Firebase
+                var firebaseUser = users.FirstOrDefault(user => user.Object.Username == username);
+                string firebaseUsername = firebaseUser?.Object.Username;
+
+                // Передача имени пользователя на страницу WorkingField для отображения
+                (_mainFrame.Content as WorkingField.WorkingField)?.ShowUsername(firebaseUsername);
+                _mainFrame.Content = new WorkingField.WorkingField(_mainFrame);
+
             }
             else
             {

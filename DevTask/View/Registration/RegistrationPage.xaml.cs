@@ -68,11 +68,15 @@ namespace DevTask.View.Registration
                 return;
             }
 
+            // Получение первой буквы имени пользователя
+            var profileLetter = username.FirstOrDefault().ToString();
+
             var user = new
             {
                 Username = username,
                 Email = email,
-                Password = password
+                Password = password,
+                ProfileLetter = profileLetter
             };
 
             await _client
