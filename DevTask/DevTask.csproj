@@ -20,6 +20,10 @@
     <None Remove="Model\Resources\Fonts\Inter.ttf" />
     <None Remove="Model\Resources\Fonts\OpenSans-Regular.ttf" />
     <None Remove="Model\Resources\Fonts\OpenSans-Semibold.ttf" />
+    <None Remove="Model\Resources\Image-Window\Page-WorkingField\AllTasks.png" />
+    <None Remove="Model\Resources\Image-Window\Page-WorkingField\Ganta.png" />
+    <None Remove="Model\Resources\Image-Window\Page-WorkingField\MyTasks.png" />
+    <None Remove="Model\Resources\Image-Window\Page-WorkingField\TaskTransfer.png" />
     <None Remove="Model\Resources\Image-Window\Window-Auth\Finger.png" />
     <None Remove="Model\Resources\Image-Window\Window-Auth\Triangle.png" />
     <None Remove="Model\Resources\Image-Window\Window-Registration\Ellipse.png" />
@@ -27,6 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Model\Resources\Image-Window\Page-WorkingField\AllTasks.png" />
+    <Resource Include="Model\Resources\Image-Window\Page-WorkingField\Ganta.png" />
+    <Resource Include="Model\Resources\Image-Window\Page-WorkingField\MyTasks.png" />
+    <Resource Include="Model\Resources\Image-Window\Page-WorkingField\TaskTransfer.png" />
     <Resource Include="Model\Resources\Image-Window\Window-Auth\Finger.png" />
   </ItemGroup>
 

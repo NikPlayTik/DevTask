@@ -15,8 +15,8 @@
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.25*"/>
-            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.45*"/>
+            <RowDefinition Height="0.32*"/>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="0.25*"/>
@@ -37,32 +37,67 @@
             <Label Grid.Column="0" Grid.Row="0" Content="*Добрый вечер,* *NikitaTest*" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="2"/>
         </Viewbox>
 
-        <!-- Календарь -->
-        <Viewbox Grid.Column="0" Grid.Row="1" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
-                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+        <!-- Выпадающий список -->
+        <Viewbox Grid.Column="2" Grid.Row="0" MinWidth="310" MaxWidth="310" MinHeight="78" MaxHeight="78" HorizontalAlignment="Right">
+            <ComboBox x:Name="ProjectComboBox" VerticalAlignment="Center">
+                <ComboBoxItem Content="Проект 1" IsSelected="True"/>
+                <ComboBoxItem Content="Проект 2"/>
+                <ComboBoxItem Content="Проект 3"/>
+            </ComboBox>
         </Viewbox>
+
+        <!-- Календарь -->
+        <Viewbox Grid.Column="0" Grid.Row="1" Width="78" Height="78" HorizontalAlignment="Left">
+            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Календарь">
+                <Grid>
+                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/Ganta.png" Width="43" Height="43"/>
+                </Grid>
+            </Button>
+        </Viewbox>
+
+        <!-- Статусы -->
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource StatusButtonStyle}" Content="В процессе" Margin="0,0,30,0"/>
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource StatusButtonStyle}" Content="Проверяется" Margin="30,0,30,0"/>
+            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource StatusButtonStyle}" Content="Доработка" Margin="30,0,30,0"/>
+            <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource StatusButtonStyle}" Content="Выполнено" Margin="30,0,0,0"/>
+        </Grid>
 
         <!-- Все задачи -->
         <Viewbox Grid.Column="0" Grid.Row="2" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
-                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Все задачи">
+                <Grid>
+                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/AllTasks.png" Width="43" Height="43"/>
+                </Grid>
+            </Button>
         </Viewbox>
 
         <!-- Мои задачи -->
         <Viewbox Grid.Column="0" Grid.Row="3" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
-                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Мои задачи">
+                <Grid>
+                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/MyTasks.png" Width="43" Height="43"/>
+                </Grid>
+            </Button>
         </Viewbox>
 
         <!-- Передача задачи -->
         <Viewbox Grid.Column="0" Grid.Row="4" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Border Width="78" Height="78" Background="Gray" CornerRadius="50">
-                <TextBlock Text="M" FontSize="40" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Передача задачи">
+                <Grid>
+                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/TaskTransfer.png" Width="43" Height="43"/>
+                </Grid>
+            </Button>
         </Viewbox>
     </Grid>
 </Page>
