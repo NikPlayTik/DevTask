@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace DevTask.View.WorkingField
@@ -16,13 +17,37 @@ namespace DevTask.View.WorkingField
 
         public void ShowUserDetails(string username, string gravatarUrl)
         {
-            UsernameTextBlock.Text = username;
+            if (!string.IsNullOrEmpty(gravatarUrl))
+            {
+                try
+                {
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(gravatarUrl, UriKind.Absolute);
+                    bitmap.EndInit();
 
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(gravatarUrl, UriKind.Absolute);
-            bitmap.EndInit();
-            AvatarImage.Source = bitmap;
+                    var brush = new ImageBrush(bitmap);
+                    brush.Stretch = Stretch.UniformToFill;
+
+                    AvatarEllipse.Fill = brush;
+                    InitialsTextBlock.Visibility = System.Windows.Visibility.Collapsed;
+                }
+                catch
+                {
+                    SetInitials(username);
+                }
+            }
+            else
+            {
+                SetInitials(username);
+            }
+        }
+
+        private void SetInitials(string username)
+        {
+            InitialsTextBlock.Text = username.Substring(0, 1).ToUpper();
+            InitialsTextBlock.Visibility = System.Windows.Visibility.Visible;
+            AvatarEllipse.Fill = new SolidColorBrush(Colors.Gray);
         }
     }
 }

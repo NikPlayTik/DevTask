@@ -28,9 +28,15 @@
 
         <!-- Профиль -->
         <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Border Width="78" Height="78" Background="Gray" CornerRadius="50" Margin="0,0,0,0">
-                <Image x:Name="AvatarImage" Width="78" Height="78" Stretch="UniformToFill" ClipToBounds="True" />
-            </Border>
+            <Grid>
+                <Ellipse Width="78" Height="78" x:Name="AvatarEllipse" Fill="Gray" />
+                <TextBlock x:Name="InitialsTextBlock" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           FontSize="24" 
+                           Foreground="White" 
+                           Visibility="Collapsed"/>
+            </Grid>
         </Viewbox>
 
         <!-- Заголовок "Доброе -утро- -день- -вечер- -ночи-," "Никнейм"-->
