@@ -33,23 +33,21 @@ namespace DevTask.View.Auth
                 .OnceAsync<dynamic>();
 
             // Проверка наличия пользователя с таким именем и паролем
-            if (users.Any(user => user.Object.Username == username && user.Object.Password == password))
+            var firebaseUser = users.FirstOrDefault(user => user.Object.Username == username && user.Object.Password == password);
+
+            if (firebaseUser != null)
             {
-                // Обработка ситуации, когда пользователь с таким именем и паролем найден
                 CustomDialog.CustomDialog.Show("Вы успешно вошли в систему!", Brushes.Green);
 
-                // Получение имени пользователя из Firebase
-                var firebaseUser = users.FirstOrDefault(user => user.Object.Username == username);
-                string firebaseUsername = firebaseUser?.Object.Username;
+                string firebaseUsername = firebaseUser.Object.Username;
+                string gravatarUrl = firebaseUser.Object.GravatarUrl;
 
-                // Передача имени пользователя на страницу WorkingField для отображения
-                (_mainFrame.Content as WorkingField.WorkingField)?.ShowUsername(firebaseUsername);
-                _mainFrame.Content = new WorkingField.WorkingField(_mainFrame);
-
+                var workingFieldPage = new WorkingField.WorkingField(_mainFrame);
+                _mainFrame.Content = workingFieldPage;
+                workingFieldPage.ShowUserDetails(firebaseUsername, gravatarUrl);
             }
             else
             {
-                // Обработка ситуации, когда пользователь с таким именем и паролем не найден
                 CustomDialog.CustomDialog.Show("Неверное имя пользователя или пароль!", Brushes.Red);
             }
         }

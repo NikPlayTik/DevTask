@@ -1,20 +1,16 @@
 ﻿using DevTask.View.Auth;
+using DevTask.View.WorkingField;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace DevTask.View.Registration
 {
@@ -41,7 +37,6 @@ namespace DevTask.View.Registration
             var emailRegex = new Regex(@"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$");
             if (!emailRegex.IsMatch(email))
             {
-                // Обработка неверного адреса электронной почты
                 CustomDialog.CustomDialog.Show("Неверный адрес электронной почты!", Brushes.Red);
                 return;
             }
@@ -50,20 +45,16 @@ namespace DevTask.View.Registration
             var passwordRegex = new Regex(@"^(?=.*\d{2,})(?=.*[a-zA-Z]).+$");
             if (!passwordRegex.IsMatch(password))
             {
-                // Обработка неверного пароля
                 CustomDialog.CustomDialog.Show("Пароль должен содержать как минимум две цифры и символы!", Brushes.Red);
                 return;
             }
 
             // Получение списка всех пользователей
-            var users = await _client
-                .Child("Users")
-                .OnceAsync<dynamic>();
+            var users = await _client.Child("Users").OnceAsync<dynamic>();
 
             // Проверка наличия пользователя с таким именем или почтой
             if (users.Any(user => user.Object.Username == username || user.Object.Email == email))
             {
-                // Обработка ситуации, когда пользователь с таким именем или почтой уже существует
                 CustomDialog.CustomDialog.Show("Пользователь с таким именем или почтой уже существует!", Brushes.Red);
                 return;
             }
@@ -71,23 +62,46 @@ namespace DevTask.View.Registration
             // Получение первой буквы имени пользователя
             var profileLetter = username.FirstOrDefault().ToString();
 
+            // Создание хэша MD5 от электронной почты для получения аватарки Gravatar
+            var emailHash = CreateMD5(email.Trim().ToLower());
+            var gravatarUrl = $"https://www.gravatar.com/avatar/{emailHash}?s=200&d=identicon";
+
             var user = new
             {
                 Username = username,
                 Email = email,
                 Password = password,
-                ProfileLetter = profileLetter
+                ProfileLetter = profileLetter,
+                GravatarUrl = gravatarUrl
             };
 
-            await _client
-                .Child("Users")
-                .PostAsync(user);
+            await _client.Child("Users").PostAsync(user);
 
             // Сообщение об успешной регистрации
             CustomDialog.CustomDialog.Show("Вы успешно зарегистрировались!", Brushes.Green);
+
+            // Перенаправление пользователя на рабочее поле и отображение данных пользователя
+            var workingFieldPage = new WorkingField.WorkingField(_mainFrame);
+            _mainFrame.Content = workingFieldPage;
+            workingFieldPage.ShowUserDetails(username, gravatarUrl);
         }
 
-        // Добавить переход в окно
+        // Функция создания MD5 хэша
+        public static string CreateMD5(string input)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("X2"));
+                }
+                return sb.ToString().ToLower();
+            }
+        }
+
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
             _mainFrame.Content = new AuthPage(_mainFrame);
