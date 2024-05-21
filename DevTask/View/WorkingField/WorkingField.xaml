@@ -41,7 +41,7 @@
 
         <!-- Заголовок "Доброе -утро- -день- -вечер- -ночи-," "Никнейм"-->
         <Viewbox Grid.Column="1" Grid.Row="0" MinWidth="1085" MinHeight="78" MaxWidth="1085" MaxHeight="78" HorizontalAlignment="Left">
-            <Label Grid.Column="0" Grid.Row="0" Content="*Добрый вечер,* *NikitaTest*" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="2"/>
+            <Label Grid.Column="0" Grid.Row="0" x:Name="GreetingLabel" Content="" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="2"/>
         </Viewbox>
 
         <!-- Выпадающий список -->

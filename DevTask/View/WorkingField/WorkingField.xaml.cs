@@ -17,6 +17,7 @@ namespace DevTask.View.WorkingField
 
         public void ShowUserDetails(string username, string gravatarUrl)
         {
+            SetGreeting(username);
             if (!string.IsNullOrEmpty(gravatarUrl))
             {
                 try
@@ -48,6 +49,31 @@ namespace DevTask.View.WorkingField
             InitialsTextBlock.Text = username.Substring(0, 1).ToUpper();
             InitialsTextBlock.Visibility = System.Windows.Visibility.Visible;
             AvatarEllipse.Fill = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void SetGreeting(string username)
+        {
+            var currentHour = DateTime.Now.Hour;
+            string greeting;
+
+            if (currentHour >= 5 && currentHour < 12)
+            {
+                greeting = "Доброе утро";
+            }
+            else if (currentHour >= 12 && currentHour < 17)
+            {
+                greeting = "Добрый день";
+            }
+            else if (currentHour >= 17 && currentHour < 22)
+            {
+                greeting = "Добрый вечер";
+            }
+            else
+            {
+                greeting = "Доброй ночи";
+            }
+
+            GreetingLabel.Content = $"{greeting}, {username}";
         }
     }
 }
