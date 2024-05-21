@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevTask.View.Auth;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -13,6 +15,16 @@ namespace DevTask.View.WorkingField
         {
             InitializeComponent();
             _mainFrame = mainFrame;
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Очистка логина из Settings
+            Properties.Settings.Default.Username = string.Empty;
+            Properties.Settings.Default.Save();
+
+            // Перенаправление на страницу авторизации
+            _mainFrame.Content = new AuthPage(_mainFrame);
         }
 
         public void ShowUserDetails(string username, string gravatarUrl)

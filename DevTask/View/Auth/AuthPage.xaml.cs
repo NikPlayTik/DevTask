@@ -37,10 +37,12 @@ namespace DevTask.View.Auth
 
             if (firebaseUser != null)
             {
-                CustomDialog.CustomDialog.Show("Вы успешно вошли в систему!", Brushes.Green);
-
                 string firebaseUsername = firebaseUser.Object.Username;
                 string gravatarUrl = firebaseUser.Object.GravatarUrl;
+
+                // Сохранение логина в Settings
+                Properties.Settings.Default.Username = firebaseUsername;
+                Properties.Settings.Default.Save();
 
                 var workingFieldPage = new WorkingField.WorkingField(_mainFrame);
                 _mainFrame.Content = workingFieldPage;

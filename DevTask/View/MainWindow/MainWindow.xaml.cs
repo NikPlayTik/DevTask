@@ -24,7 +24,21 @@ namespace DevTask.View.MainWindow
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Content = new RegistrationPage(MainFrame);
+
+            // Проверка, есть ли сохраненный логин
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.Username))
+            {
+                // Переход на рабочее поле, если пользователь уже вошел
+                var workingFieldPage = new WorkingField.WorkingField(MainFrame);
+                MainFrame.Content = workingFieldPage;
+                // Передача данных пользователя
+                workingFieldPage.ShowUserDetails(Properties.Settings.Default.Username, null); // GravatarUrl может быть загружен отдельно
+            }
+            else
+            {
+                // Перенаправление на страницу регистрации, если пользователь не вошел
+                MainFrame.Content = new RegistrationPage(MainFrame);
+            }
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -27,7 +27,7 @@
         <TextBlock x:Name="UsernameTextBlock" Grid.Column="1" Grid.Row="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
 
         <!-- Профиль -->
-        <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+        <Viewbox Grid.Column="0" Grid.Row="0" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left" Margin="8,0,0,0">
             <Grid>
                 <Ellipse Width="78" Height="78" x:Name="AvatarEllipse" Fill="Gray" />
                 <TextBlock x:Name="InitialsTextBlock" 
@@ -54,12 +54,13 @@
         </Viewbox>
 
         <!-- Календарь -->
-        <Viewbox Grid.Column="0" Grid.Row="1" Width="78" Height="78" HorizontalAlignment="Left">
-            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Календарь">
-                <Grid>
+        <Viewbox Grid.Column="0" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Календарь">
                     <Image Source="/Model/Resources/Image-Window/Page-WorkingField/Ganta.png" Width="43" Height="43"/>
-                </Grid>
-            </Button>
+                </Button>
+                <TextBlock Text="Календарь" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
         </Viewbox>
 
         <!-- Статусы -->
@@ -81,26 +82,43 @@
         </Grid>
 
         <!-- Все задачи -->
-        <Viewbox Grid.Column="0" Grid.Row="2" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Все задачи">
-                <Grid>
+        <Viewbox Grid.Column="0" Grid.Row="2" MinWidth="100" MinHeight="100" MaxWidth="100" MaxHeight="100" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Все задачи">
                     <Image Source="/Model/Resources/Image-Window/Page-WorkingField/AllTasks.png" Width="43" Height="43"/>
-                </Grid>
-            </Button>
+                </Button>
+                <TextBlock Text="Все задачи" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
+            </StackPanel>
         </Viewbox>
 
         <!-- Мои задачи -->
-        <Viewbox Grid.Column="0" Grid.Row="3" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Мои задачи">
-                <Grid>
+        <Viewbox Grid.Column="0" Grid.Row="3" MinWidth="100" MinHeight="100" MaxWidth="100" MaxHeight="100" HorizontalAlignment="Left" Margin="-5,0,0,0">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Мои задачи">
                     <Image Source="/Model/Resources/Image-Window/Page-WorkingField/MyTasks.png" Width="43" Height="43"/>
-                </Grid>
-            </Button>
+                </Button>
+                <TextBlock Text="Мои задачи" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
+            </StackPanel>
         </Viewbox>
 
         <!-- Передача задачи -->
-        <Viewbox Grid.Column="0" Grid.Row="4" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Передача задачи">
+        <Viewbox Grid.Column="0" Grid.Row="4" MinWidth="120" MinHeight="120" MaxWidth="120" MaxHeight="120" HorizontalAlignment="Left" Margin="6,0,0,0">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Style="{StaticResource SideButtonStyle}" ToolTip="Передача задачи" HorizontalAlignment="Center">
+                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/TaskTransfer.png" Width="43" Height="43"/>
+                </Button>
+                <TextBlock FontSize="19" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" TextAlignment="Center">
+                    <Run Text="Передача"/>
+                    <LineBreak/>
+                    <Run Text="задачи"/>
+                </TextBlock>
+            </StackPanel>
+        </Viewbox>
+
+
+        <!-- Выход из аккаунта -->
+        <Viewbox Grid.Column="0" Grid.Row="5" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
+            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Выход из аккаунта" Click="LogoutButton_Click">
                 <Grid>
                     <Image Source="/Model/Resources/Image-Window/Page-WorkingField/TaskTransfer.png" Width="43" Height="43"/>
                 </Grid>
