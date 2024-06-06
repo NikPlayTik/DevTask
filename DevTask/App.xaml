@@ -320,15 +320,14 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <Border Name="Border"
-                    Grid.ColumnSpan="2"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="38" />
-                <!-- Добавлено CornerRadius для закругления -->
+                Grid.ColumnSpan="2"
+                Background="#E09C3F"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="38" />
                 <ContentPresenter
                     VerticalAlignment="Center"
                     Margin="2,2,23,2"
@@ -336,12 +335,13 @@
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     Name="ContentSite"
                     IsHitTestVisible="False" />
-                <Path x:Name="Arrow" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Data="M 0 0 L 4 4 L 8 0 Z" Fill="Black" />
+                <Grid x:Name="ArrowGrid" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="27">
+                    <Path Data="M18.0981 25.5C16.9434 27.5 14.0566 27.5 12.9019 25.5L1.21058 5.25C0.0558817 3.25 1.49926 0.750001 3.80866 0.750001L27.1913 0.750003C29.5007 0.750003 30.9441 3.25 29.7894 5.25L18.0981 25.5Z" Fill="#D9D9D9" Stretch="Fill"/>
+                </Grid>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter TargetName="Arrow" Property="RenderTransform">
+                    <Setter TargetName="ArrowGrid" Property="RenderTransform">
                         <Setter.Value>
                             <RotateTransform Angle="180" />
                         </Setter.Value>
@@ -351,7 +351,7 @@
                     <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
                 </Trigger>
                 <Trigger Property="UIElement.IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="#D9D9D9" />
+                    <Setter Property="Foreground" Value="#BE7B1F" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -398,7 +398,7 @@
                            IsOpen="{TemplateBinding IsDropDownOpen}"
                            AllowsTransparency="True"
                            Focusable="False"
-                           PopupAnimation="Slide">
+                           PopupAnimation="Fade">
                                 <Grid Name="DropDown"
                               SnapsToDevicePixels="True"
                               MinWidth="{TemplateBinding ActualWidth}"
