@@ -313,101 +313,107 @@
             </Setter>
         </Style>
 
-        <!-- ComboBox -->
-            <!-- Стиль для кнопки ToggleButton в ComboBox -->
-            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="310" />
-                    </Grid.ColumnDefinitions>
-                    <Border Name="Border" 
-                            Grid.ColumnSpan="2" 
-                            CornerRadius="17" 
-                            Background="{TemplateBinding Background}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="1" />
-                    <ContentPresenter Grid.Column="0" 
-                                      VerticalAlignment="Center" 
-                                      HorizontalAlignment="Left" 
-                                      Margin="5,2,0,2" 
-                                      Content="{TemplateBinding Content}" />
-                    <Path Grid.Column="1" 
-                          VerticalAlignment="Center" 
-                          HorizontalAlignment="Center" 
-                          Data="M 0 0 L 4 4 L 8 0 Z" 
-                          Fill="White" 
-                          Margin="0,0,6,0"/>
-                </Grid>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="ToggleButton.IsMouseOver" Value="True">
-                        <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
-                    </Trigger>
-                    <Trigger Property="ToggleButton.IsChecked" Value="True">
-                        <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
 
-            <!-- Стиль для TextBox в ComboBox -->
-            <Style x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
-                <Setter Property="Background" Value="#E09C3F" />
-                <Setter Property="BorderBrush" Value="Transparent" />
-                <Setter Property="Foreground" Value="#E09C3F" />
-                <Setter Property="FontFamily" Value="Cygre Medium" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="Padding" Value="2" />
-            </Style>
 
-            <!-- Стиль для ComboBox -->
-            <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+        <!-- Определение ComboBoxToggleButton -->
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Border Name="Border"
+                    Grid.ColumnSpan="2"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="38" />
+                <!-- Добавлено CornerRadius для закругления -->
+                <ContentPresenter
+                    VerticalAlignment="Center"
+                    Margin="2,2,23,2"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    Name="ContentSite"
+                    IsHitTestVisible="False" />
+                <Path x:Name="Arrow" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Data="M 0 0 L 4 4 L 8 0 Z" Fill="Black" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter TargetName="Arrow" Property="RenderTransform">
+                        <Setter.Value>
+                            <RotateTransform Angle="180" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
+                </Trigger>
+                <Trigger Property="UIElement.IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#D9D9D9" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- Шаблон для элементов ComboBox -->
+        <DataTemplate x:Key="ComboBoxItemTemplate">
+            <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" />
+        </DataTemplate>
+
+        <!-- Стиль для ComboBox -->
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Width" Value="310"/>
             <Setter Property="Height" Value="78"/>
             <Setter Property="Background" Value="#E09C3F"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontFamily" Value="Cygre Medium"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="40"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="5"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource ComboBoxItemTemplate}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <ToggleButton Name="ToggleButton"
-                                      Height="78"
-                                      Template="{StaticResource ComboBoxToggleButton}"
-                                      Grid.Column="2"
-                                      Focusable="false"
-                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                      ClickMode="Press">
+                                  Height="78"
+                                  Template="{StaticResource ComboBoxToggleButton}"
+                                  Grid.Column="2"
+                                  Focusable="false"
+                                  IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                  ClickMode="Press">
                             </ToggleButton>
                             <ContentPresenter Name="ContentSite"
-                                          IsHitTestVisible="False"
-                                          Content="{TemplateBinding SelectionBoxItem}"
-                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                          Margin="3,3,23,3"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"/>
+                                      IsHitTestVisible="False"
+                                      Content="{TemplateBinding SelectionBoxItem}"
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                      Margin="33,3,23,3"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"/>
                             <Popup Name="Popup"
-                               Placement="Bottom"
-                               IsOpen="{TemplateBinding IsDropDownOpen}"
-                               AllowsTransparency="True"
-                               Focusable="False"
-                               PopupAnimation="Slide">
+                           Placement="Bottom"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           AllowsTransparency="True"
+                           Focusable="False"
+                           PopupAnimation="Slide">
                                 <Grid Name="DropDown"
-                                  SnapsToDevicePixels="True"
-                                  MinWidth="{TemplateBinding ActualWidth}"
-                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                              SnapsToDevicePixels="True"
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"
-                                        Background="#0D2746"
-                                        BorderBrush="Transparent"
-                                        BorderThickness="0"
-                                        Height="78"/>
-                                    <ScrollViewer Margin="4,6,4,6"
-                                              SnapsToDevicePixels="True">
+                                    Background="#E09C3F"
+                                    BorderBrush="Black"
+                                    BorderThickness="3"
+                                    Height="Auto"
+                                    CornerRadius="30" 
+                                    Margin="0,20,0,20"/>
+                                    <ScrollViewer Margin="33,50,33,50"
+                                          SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                            KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
                                 </Grid>
                             </Popup>
@@ -416,8 +422,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!-- ComboBox -->
-        
-        
+
+        <!-- Применение пользовательского стиля для всех ComboBox -->
+        <Style TargetType="ComboBox" BasedOn="{StaticResource CustomComboBoxStyle}"/>
+
     </Application.Resources>
 </Application>
