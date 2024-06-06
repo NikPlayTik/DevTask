@@ -1,5 +1,6 @@
 ﻿using DevTask.View.Auth;
 using DevTask.View.WorkingField;
+using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System;
@@ -66,7 +67,8 @@ namespace DevTask.View.Registration
             var emailHash = CreateMD5(email.Trim().ToLower());
             var gravatarUrl = $"https://www.gravatar.com/avatar/{emailHash}?s=200&d=identicon";
 
-            var user = new
+            // Создание нового пользователя с использованием класса User
+            var newUser = new Model.ClassUser.User
             {
                 Username = username,
                 Email = email,
@@ -75,7 +77,14 @@ namespace DevTask.View.Registration
                 GravatarUrl = gravatarUrl
             };
 
-            await _client.Child("Users").PostAsync(user);
+            // Регистрация нового пользователя и получение уникального ключа Firebase
+            var firebaseObject = await _client.Child("Users").PostAsync(newUser);
+
+            // Установка Id пользователя равным уникальному ключу Firebase
+            newUser.Id = firebaseObject.Key;
+
+            // Обновление пользователя с новым Id
+            await _client.Child("Users").Child(firebaseObject.Key).PutAsync(newUser);
 
             // Сообщение об успешной регистрации
             CustomDialog.CustomDialog.Show("Вы успешно зарегистрировались!", Brushes.Green);

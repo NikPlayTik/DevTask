@@ -313,53 +313,54 @@
             </Setter>
         </Style>
 
-        <!-- Стиль для кнопки ToggleButton в ComboBox -->
-        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="310" />
-                </Grid.ColumnDefinitions>
-                <Border Name="Border" 
-                        Grid.ColumnSpan="2" 
-                        CornerRadius="17" 
-                        Background="{TemplateBinding Background}" 
-                        BorderBrush="{TemplateBinding BorderBrush}" 
-                        BorderThickness="1" />
-                <ContentPresenter Grid.Column="0" 
-                                  VerticalAlignment="Center" 
-                                  HorizontalAlignment="Left" 
-                                  Margin="5,2,0,2" 
-                                  Content="{TemplateBinding Content}" />
-                <Path Grid.Column="1" 
-                      VerticalAlignment="Center" 
-                      HorizontalAlignment="Center" 
-                      Data="M 0 0 L 4 4 L 8 0 Z" 
-                      Fill="White" 
-                      Margin="0,0,6,0"/>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="ToggleButton.IsMouseOver" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
-                </Trigger>
-                <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+        <!-- ComboBox -->
+            <!-- Стиль для кнопки ToggleButton в ComboBox -->
+            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="310" />
+                    </Grid.ColumnDefinitions>
+                    <Border Name="Border" 
+                            Grid.ColumnSpan="2" 
+                            CornerRadius="17" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="1" />
+                    <ContentPresenter Grid.Column="0" 
+                                      VerticalAlignment="Center" 
+                                      HorizontalAlignment="Left" 
+                                      Margin="5,2,0,2" 
+                                      Content="{TemplateBinding Content}" />
+                    <Path Grid.Column="1" 
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Center" 
+                          Data="M 0 0 L 4 4 L 8 0 Z" 
+                          Fill="White" 
+                          Margin="0,0,6,0"/>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="ToggleButton.IsMouseOver" Value="True">
+                        <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
+                    </Trigger>
+                    <Trigger Property="ToggleButton.IsChecked" Value="True">
+                        <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
 
-        <!-- Стиль для TextBox в ComboBox -->
-        <Style x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="#E09C3F" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Foreground" Value="#E09C3F" />
-            <Setter Property="FontFamily" Value="Cygre Medium" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Padding" Value="2" />
-        </Style>
+            <!-- Стиль для TextBox в ComboBox -->
+            <Style x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+                <Setter Property="Background" Value="#E09C3F" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Foreground" Value="#E09C3F" />
+                <Setter Property="FontFamily" Value="Cygre Medium" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Padding" Value="2" />
+            </Style>
 
-        <!-- Стиль для ComboBox -->
-        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <!-- Стиль для ComboBox -->
+            <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
             <Setter Property="Height" Value="78"/>
             <Setter Property="Background" Value="#E09C3F"/>
             <Setter Property="Foreground" Value="White"/>
@@ -373,40 +374,40 @@
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <ToggleButton Name="ToggleButton"
-                                  Height="78"
-                                  Template="{StaticResource ComboBoxToggleButton}"
-                                  Grid.Column="2"
-                                  Focusable="false"
-                                  IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                  ClickMode="Press">
+                                      Height="78"
+                                      Template="{StaticResource ComboBoxToggleButton}"
+                                      Grid.Column="2"
+                                      Focusable="false"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press">
                             </ToggleButton>
                             <ContentPresenter Name="ContentSite"
-                                      IsHitTestVisible="False"
-                                      Content="{TemplateBinding SelectionBoxItem}"
-                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                      Margin="3,3,23,3"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Left"/>
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,3,23,3"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"/>
                             <Popup Name="Popup"
-                           Placement="Bottom"
-                           IsOpen="{TemplateBinding IsDropDownOpen}"
-                           AllowsTransparency="True"
-                           Focusable="False"
-                           PopupAnimation="Slide">
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
                                 <Grid Name="DropDown"
-                              SnapsToDevicePixels="True"
-                              MinWidth="{TemplateBinding ActualWidth}"
-                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"
-                                    Background="#0D2746"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="0"
-                                    Height="78"/>
+                                        Background="#0D2746"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Height="78"/>
                                     <ScrollViewer Margin="4,6,4,6"
-                                          SnapsToDevicePixels="True">
+                                              SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True"
-                                            KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
                                 </Grid>
                             </Popup>
@@ -415,5 +416,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- ComboBox -->
+        
+        
     </Application.Resources>
 </Application>

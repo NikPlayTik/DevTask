@@ -87,5 +87,17 @@ namespace DevTask.View.WorkingField
 
             GreetingLabel.Content = $"{greeting}, {username}";
         }
+
+        // Обработчик событий для кнопки "Передача задачи"
+        private void TaskTransferButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Создание экземпляра страницы, которую вы хотите отобразить во Frame
+            var taskTransferPage = new Page_TaskTransfer.Page_TaskTransfer();
+
+            // Установка содержимого Frame равным новой странице
+            StatusFrame.Content = taskTransferPage;
+        }
+
+
     }
 }
