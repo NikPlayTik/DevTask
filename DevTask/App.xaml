@@ -313,9 +313,7 @@
             </Setter>
         </Style>
 
-
-
-        <!-- Определение ComboBoxToggleButton -->
+        <!-- ОComboBoxToggleButton -->
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -323,29 +321,41 @@
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <Border Name="Border"
-                Grid.ColumnSpan="2"
-                Background="#E09C3F"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="38" />
+            Grid.ColumnSpan="2"
+            Background="#E09C3F"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="38" />
                 <ContentPresenter
-                    VerticalAlignment="Center"
-                    Margin="2,2,23,2"
-                    Content="{TemplateBinding Content}"
-                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                    Name="ContentSite"
-                    IsHitTestVisible="False" />
+            VerticalAlignment="Center"
+            Margin="2,2,23,2"
+            Content="{TemplateBinding Content}"
+            ContentTemplate="{TemplateBinding ContentTemplate}"
+            Name="ContentSite"
+            IsHitTestVisible="False" />
                 <Grid x:Name="ArrowGrid" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="27">
+                    <Grid.RenderTransform>
+                        <RotateTransform x:Name="ArrowRotateTransform" Angle="0" CenterX="15.5" CenterY="13.5" />
+                    </Grid.RenderTransform>
                     <Path Data="M18.0981 25.5C16.9434 27.5 14.0566 27.5 12.9019 25.5L1.21058 5.25C0.0558817 3.25 1.49926 0.750001 3.80866 0.750001L27.1913 0.750003C29.5007 0.750003 30.9441 3.25 29.7894 5.25L18.0981 25.5Z" Fill="#D9D9D9" Stretch="Fill"/>
                 </Grid>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter TargetName="ArrowGrid" Property="RenderTransform">
-                        <Setter.Value>
-                            <RotateTransform Angle="180" />
-                        </Setter.Value>
-                    </Setter>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" To="180" Storyboard.TargetProperty="Angle" Storyboard.TargetName="ArrowRotateTransform" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="Angle" Storyboard.TargetName="ArrowRotateTransform" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
                 <Trigger Property="UIElement.IsMouseOver" Value="True">
                     <Setter TargetName="Border" Property="Background" Value="#E09C3F" />
