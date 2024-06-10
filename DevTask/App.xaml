@@ -313,7 +313,7 @@
             </Setter>
         </Style>
 
-        <!-- ОComboBoxToggleButton -->
+        <!-- ComboBoxToggleButton -->
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -368,7 +368,30 @@
 
         <!-- Шаблон для элементов ComboBox -->
         <DataTemplate x:Key="ComboBoxItemTemplate">
-            <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" />
+            <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontFamily" Value="Cygre Medium" />
+                        <Setter Property="FontSize" Value="40" />
+                        <Setter Property="Padding" Value="10,5" />
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#E09C3F" Opacity="1" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Gray" Opacity="0.4" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </DataTemplate>
 
         <!-- Стиль для ComboBox -->
@@ -436,5 +459,80 @@
         <!-- Применение пользовательского стиля для всех ComboBox -->
         <Style TargetType="ComboBox" BasedOn="{StaticResource CustomComboBoxStyle}"/>
 
+        <!-- Выбор сроков и календарь DatePicker -->
+        <Style TargetType="DatePicker" x:Key="CustomDatePicker">
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E09C3F"/>
+            <Setter Property="BorderBrush" Value="#E09C3F"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="Cygre Medium"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            Width="500"
+                            Height="70">
+                                <Grid>
+                                    <TextBox x:Name="PART_TextBox"
+                                     Text="Выберите дату"
+                                     Foreground="White"
+                                     Background="Transparent"
+                                     FontFamily="{TemplateBinding FontFamily}"
+                                     FontSize="40"
+                                     Padding="10"
+                                     VerticalContentAlignment="Center"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"/>
+                                    <Button x:Name="PART_Button"
+                                    Width="30"
+                                    Height="30"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Margin="5"
+                                    Background="Transparent"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0">
+                                        <Path Data="M0,0 L0,1 L1,1 L1,0 Z"
+                                      Stretch="Uniform"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Width="12"
+                                      Height="12"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <Popup x:Name="PART_Popup"
+                           Placement="Bottom"
+                           StaysOpen="False"
+                           IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border x:Name="PART_CalendarBorder"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                Background="{TemplateBinding Background}">
+                                    <Calendar x:Name="PART_Calendar"
+                                      IsTodayHighlighted="True"
+                                      Width="400"
+                                      Height="400"/>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="DatePicker.SelectedDate" Value="{x:Null}">
+                                <Setter TargetName="PART_TextBox" Property="Text" Value="Выберите дату" />
+                                <Setter TargetName="PART_TextBox" Property="Foreground" Value="#E09C3F" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

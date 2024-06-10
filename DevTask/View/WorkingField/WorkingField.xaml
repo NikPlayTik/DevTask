@@ -21,7 +21,7 @@
             <RowDefinition Height="0.45*"/>
             <RowDefinition Height="0.45*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="UsernameTextBlock" Grid.Column="1" Grid.Row="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
@@ -124,13 +124,18 @@
         </Viewbox>
 
 
-        <!-- Выход из аккаунта -->
-        <Viewbox Grid.Column="0" Grid.Row="5" MinWidth="78" MinHeight="78" MaxWidth="78" MaxHeight="78" HorizontalAlignment="Left">
-            <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Выход из аккаунта" Click="LogoutButton_Click">
-                <Grid>
-                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/TaskTransfer.png" Width="43" Height="43"/>
-                </Grid>
-            </Button>
+        <!-- Выйти из аккаунта -->
+        <Viewbox Grid.Column="0" Grid.Row="5" MinWidth="115" MinHeight="115" MaxWidth="115" MaxHeight="115" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="4,0,0,0">
+                <Button Style="{StaticResource SideButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTip="Выйти из аккаунта" Click="LogoutButton_Click">
+                    <Image Source="/Model/Resources/Image-Window/Page-WorkingField/LogoutAccount.png" Width="43" Height="43"/>
+                </Button>
+                <TextBlock FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Run Text="Выйти из"/>
+                    <LineBreak/>
+                    <Run Text="аккаунта"/>
+                </TextBlock>
+            </StackPanel>
         </Viewbox>
     </Grid>
 </Page>
