@@ -93,5 +93,17 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
             MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
             e.Handled = true;
         }
+
+        private void DescriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                int lineCount = textBox.LineCount;
+                double lineHeight = textBox.FontSize + textBox.FontFamily.LineSpacing;
+                double newHeight = lineCount * lineHeight;
+
+                textBox.Height = Math.Min(newHeight, 500); // Устанавливаем максимальную высоту 500
+            }
+        }
     }
 }

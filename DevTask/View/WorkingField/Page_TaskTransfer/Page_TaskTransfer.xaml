@@ -31,17 +31,19 @@
                     <Label Content="Описание задачи" Style="{StaticResource DefaultText}" Padding="-10"/>
                 </Viewbox>
 
-                <ScrollViewer Grid.Row="1" HorizontalAlignment="Left" Width="1026" Height="180" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" HorizontalAlignment="Left" Width="1026" VerticalScrollBarVisibility="Auto">
                     <TextBox x:Name="DescriptionTextBox"
-                         Style="{StaticResource CustomTextBox}"
-                         Width="1000"
-                         Height="170"
-                         FontSize="40"
-                         Foreground="White"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"
-                         VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Disabled"/>
+                             Style="{StaticResource CustomTextBox}"
+                             Width="1000"
+                             MinHeight="200"
+                             MaxHeight="570"
+                             FontSize="40"
+                             Foreground="White"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Disabled"
+                             TextChanged="DescriptionTextBox_TextChanged"/>
                 </ScrollViewer>
             </Grid>
 
@@ -52,7 +54,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Viewbox MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
-                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" VerticalAlignment="Bottom">
+                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" >
 
                     </ComboBox>
                 </Viewbox>
