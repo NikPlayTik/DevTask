@@ -48,8 +48,9 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 Image newImage = new Image
                 {
                     Source = bitmap,
-                    Width = bitmap.PixelWidth,
-                    Height = bitmap.PixelHeight,
+                    MaxWidth = 1000,  // Устанавливаем максимальную ширину
+                    MaxHeight = 1000, // Устанавливаем максимальную высоту
+                    Stretch = Stretch.Uniform, // Устанавливаем режим растяжения
                     Margin = new Thickness(10)
                 };
                 newImage.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем новое изображение на событие PreviewMouseWheel
@@ -58,7 +59,7 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 TextBlock newTextBlock = new TextBlock
                 {
                     Text = fileName.Length > 30 ? fileName.Substring(0, 30) + "..." : fileName,
-                    MaxWidth = bitmap.PixelWidth,
+                    MaxWidth = 200,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(10),
                     Foreground = Brushes.White,
