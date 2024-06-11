@@ -35,7 +35,7 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image files (*.png;*.jpg)|*.png;*.jpg",
+                Filter = "Выберите изображение (*.png;*.jpg)|*.png;*.jpg",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
             };
 
@@ -50,16 +50,31 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                     Source = bitmap,
                     MaxWidth = 1000,  // Устанавливаем максимальную ширину
                     MaxHeight = 1000, // Устанавливаем максимальную высоту
-                    Stretch = Stretch.Uniform, // Устанавливаем режим растяжения
-                    Margin = new Thickness(10)
+                    Stretch = Stretch.UniformToFill
                 };
-                newImage.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем новое изображение на событие PreviewMouseWheel
+
+                // Создаем Border для закругления краев изображения
+                Border imageBorder = new Border
+                {
+                    Width = 1000,
+                    Height = 1000,
+                    CornerRadius = new CornerRadius(20),
+                    ClipToBounds = true,
+                    Margin = new Thickness(10),
+                    Child = newImage
+                };
+
+                // Создаем закругленный Clip для изображения
+                RectangleGeometry clipGeometry = new RectangleGeometry(new Rect(0, 0, 1000, 1000), 20, 20);
+                newImage.Clip = clipGeometry;
+
+                imageBorder.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем новый элемент на событие PreviewMouseWheel
 
                 string fileName = System.IO.Path.GetFileName(selectedFileName);
                 TextBlock newTextBlock = new TextBlock
                 {
                     Text = fileName.Length > 30 ? fileName.Substring(0, 30) + "..." : fileName,
-                    MaxWidth = 200,
+                    MaxWidth = 998,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(10),
                     Foreground = Brushes.White,
@@ -68,7 +83,7 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 newTextBlock.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем TextBlock на событие PreviewMouseWheel
 
                 // Добавляем их в StackPanel перед кнопкой
-                ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newImage);
+                ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, imageBorder);
                 ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newTextBlock);
             }
         }
