@@ -52,6 +52,7 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                     Height = bitmap.PixelHeight,
                     Margin = new Thickness(10)
                 };
+                newImage.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем новое изображение на событие PreviewMouseWheel
 
                 string fileName = System.IO.Path.GetFileName(selectedFileName);
                 TextBlock newTextBlock = new TextBlock
@@ -63,11 +64,18 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                     Foreground = Brushes.White,
                     FontSize = 25
                 };
+                newTextBlock.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем TextBlock на событие PreviewMouseWheel
 
                 // Добавляем их в StackPanel перед кнопкой
                 ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newImage);
                 ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newTextBlock);
             }
+        }
+
+        private void ImagesPanel_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
     }
 }

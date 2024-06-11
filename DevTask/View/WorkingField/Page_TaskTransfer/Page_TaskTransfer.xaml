@@ -8,90 +8,92 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page_TaskTransfer" Background="Transparent">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.1*"/>
-            <ColumnDefinition Width="0.6*"/>
-        </Grid.ColumnDefinitions>
-
-        <!-- Поле ввода описания -->
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Viewbox HorizontalAlignment="Left" MaxWidth="344" MaxHeight="48" Grid.Row="0" Margin="3">
-                <Label Content="Описание задачи" Style="{StaticResource DefaultText}" Padding="-10"/>
-            </Viewbox>
-
-            <ScrollViewer Grid.Row="1" HorizontalAlignment="Left" Width="1026" Height="180" VerticalScrollBarVisibility="Auto">
-                <TextBox x:Name="DescriptionTextBox"
-                     Style="{StaticResource CustomTextBox}"
-                     Width="1000"
-                     Height="170"
-                     FontSize="40"
-                     Foreground="White"
-                     TextWrapping="Wrap"
-                     AcceptsReturn="True"
-                     VerticalScrollBarVisibility="Auto"
-                     HorizontalScrollBarVisibility="Disabled"/>
-            </ScrollViewer>
-        </Grid>
-
-        <!-- Выпадающий список всех добавленных пользователей -->
-        <Grid Grid.Row="0" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.4*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Viewbox MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
-                <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" VerticalAlignment="Bottom">
-                
-                </ComboBox>
-            </Viewbox>
-        </Grid>
-        
-        <!-- Срок выполнения -->
-        <Grid Grid.Row="1">
+    <ScrollViewer x:Name="MainScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid HorizontalAlignment="Left" MaxWidth="691" MaxHeight="48" Grid.Row="0">
-                <Label Content="Срок выполнения (необязательно)" Style="{StaticResource DefaultText}" FontSize="40"/>
+            <!-- Поле ввода описания -->
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Viewbox HorizontalAlignment="Left" MaxWidth="344" MaxHeight="48" Grid.Row="0" Margin="3">
+                    <Label Content="Описание задачи" Style="{StaticResource DefaultText}" Padding="-10"/>
+                </Viewbox>
+
+                <ScrollViewer Grid.Row="1" HorizontalAlignment="Left" Width="1026" Height="180" VerticalScrollBarVisibility="Auto">
+                    <TextBox x:Name="DescriptionTextBox"
+                         Style="{StaticResource CustomTextBox}"
+                         Width="1000"
+                         Height="170"
+                         FontSize="40"
+                         Foreground="White"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Disabled"/>
+                </ScrollViewer>
             </Grid>
-            <Grid Grid.Row="1" MaxWidth="510" MinWidth="510" MaxHeight="100" MinHeight="100" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <DatePicker x:Name="TaskDatePicker" Style="{StaticResource CustomDatePicker}"/>
+
+            <!-- Выпадающий список всех добавленных пользователей -->
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Viewbox MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
+                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" VerticalAlignment="Bottom">
+
+                    </ComboBox>
+                </Viewbox>
+            </Grid>
+
+            <!-- Срок выполнения -->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid HorizontalAlignment="Left" MaxWidth="691" MaxHeight="48" Grid.Row="0">
+                    <Label Content="Срок выполнения (необязательно)" Style="{StaticResource DefaultText}" FontSize="40"/>
+                </Grid>
+                <Grid Grid.Row="1" MaxWidth="510" MinWidth="510" MaxHeight="100" MinHeight="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,0,0,0">
+                    <DatePicker x:Name="TaskDatePicker" Style="{StaticResource CustomDatePicker}"/>
+                </Grid>
+            </Grid>
+
+            <!-- Изображения -->
+            <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Viewbox HorizontalAlignment="Left" MaxWidth="691" MaxHeight="48" Grid.Row="0" Margin="3">
+                    <Label Content="Изображение (необязательно)" Style="{StaticResource DefaultText}" Padding="-10"/>
+                </Viewbox>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="ImagesPanel" Margin="10" PreviewMouseWheel="ImagesPanel_PreviewMouseWheel">
+                        <Button x:Name="AddImageButton" Click="AddImageButton_Click" Style="{StaticResource AddImageButtonStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="\Model\Resources\Image-Window\Page-TaskTransfer\ImageIcon.png" Width="80" Height="80" Margin="5,0,5,0"/>
+                                <TextBlock Text="Добавить изображение" VerticalAlignment="Center" Foreground="White" FontSize="25"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Grid>
-
-        <!-- Изображения -->
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Viewbox HorizontalAlignment="Left" MaxWidth="691" MaxHeight="48" Grid.Row="0" Margin="3">
-                <Label Content="Изображение (необязательно)" Style="{StaticResource DefaultText}" Padding="-10"/>
-            </Viewbox>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="200">
-                <StackPanel x:Name="ImagesPanel" Margin="10">
-                    <Button x:Name="AddImageButton" Click="AddImageButton_Click" Style="{StaticResource AddImageButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="\Model\Resources\Image-Window\Page-TaskTransfer\ImageIcon.png" Width="80" Height="80" Margin="5,0,5,0"/>
-                            <TextBlock Text="Добавить изображение" VerticalAlignment="Center" Foreground="White" FontSize="25"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-    </Grid>
+    </ScrollViewer>
 </Page>
