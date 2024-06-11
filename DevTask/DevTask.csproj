@@ -20,6 +20,7 @@
     <None Remove="Model\Resources\Fonts\Inter.ttf" />
     <None Remove="Model\Resources\Fonts\OpenSans-Regular.ttf" />
     <None Remove="Model\Resources\Fonts\OpenSans-Semibold.ttf" />
+    <None Remove="Model\Resources\Image-Window\Page-TaskTransfer\ImageIcon.png" />
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\AllTasks.png" />
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\Ganta.png" />
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\LogoutAccount.png" />
@@ -32,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Model\Resources\Image-Window\Page-TaskTransfer\ImageIcon.png" />
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\AllTasks.png" />
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\Ganta.png" />
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\LogoutAccount.png" />

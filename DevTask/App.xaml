@@ -476,51 +476,52 @@
                     <ControlTemplate TargetType="DatePicker">
                         <Grid>
                             <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="10"
-                            Width="500"
-                            Height="70">
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10"
+                    Width="500"
+                    Height="70">
                                 <Grid>
                                     <TextBox x:Name="PART_TextBox"
-                                     Text="Выберите дату"
-                                     Foreground="White"
-                                     Background="Transparent"
-                                     FontFamily="{TemplateBinding FontFamily}"
-                                     FontSize="40"
-                                     Padding="10"
-                                     VerticalContentAlignment="Center"
-                                     IsReadOnly="True"
-                                     BorderThickness="0"/>
+                             Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource TemplatedParent}, StringFormat='dd.MM.yyyy'}"
+                             Foreground="White"
+                             Background="Transparent"
+                             FontFamily="{TemplateBinding FontFamily}"
+                             FontSize="40"
+                             Padding="10"
+                             VerticalContentAlignment="Center"
+                             IsReadOnly="True"
+                             BorderThickness="0"/>
                                     <Button x:Name="PART_Button"
-                                    Width="30"
-                                    Height="30"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Margin="5"
-                                    Background="Transparent"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="0">
+                            Width="30"
+                            Height="30"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="5"
+                            Background="Transparent"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="0">
                                         <Path Data="M0,0 L0,1 L1,1 L1,0 Z"
-                                      Stretch="Uniform"
-                                      Fill="{TemplateBinding Foreground}"
-                                      Width="12"
-                                      Height="12"/>
+                              Stretch="Uniform"
+                              Fill="{TemplateBinding Foreground}"
+                              Width="12"
+                              Height="12"/>
                                     </Button>
                                 </Grid>
                             </Border>
                             <Popup x:Name="PART_Popup"
-                           Placement="Bottom"
-                           StaysOpen="False"
-                           IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                   Placement="Bottom"
+                   StaysOpen="False"
+                   IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Border x:Name="PART_CalendarBorder"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="1"
-                                Background="{TemplateBinding Background}">
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        Background="{TemplateBinding Background}">
                                     <Calendar x:Name="PART_Calendar"
-                                      IsTodayHighlighted="True"
-                                      Width="400"
-                                      Height="400"/>
+                              IsTodayHighlighted="True"
+                              Width="400"
+                              Height="400"
+                              SelectedDate="{Binding Path=SelectedDate, RelativeSource={RelativeSource TemplatedParent}}"/>
                                 </Border>
                             </Popup>
                         </Grid>
@@ -528,6 +529,34 @@
                             <Trigger Property="DatePicker.SelectedDate" Value="{x:Null}">
                                 <Setter TargetName="PART_TextBox" Property="Text" Value="Выберите дату" />
                                 <Setter TargetName="PART_TextBox" Property="Foreground" Value="#E09C3F" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стили для кнопки добавления изображения -->
+        <Style x:Key="AddImageButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="Cygre Medium"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#33FFFFFF"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

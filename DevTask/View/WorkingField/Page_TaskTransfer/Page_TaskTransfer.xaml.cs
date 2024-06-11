@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,51 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
         {
             InitializeComponent();
         }
+
+        private void TaskDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TaskDatePicker.SelectedDate.HasValue)
+            {
+                TaskDatePicker.Text = TaskDatePicker.SelectedDate.Value.ToString("dd.MM.yyyy");
+            }
+        }
+
+        private void AddImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.png;*.jpg)|*.png;*.jpg",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedFileName = openFileDialog.FileName;
+                BitmapImage bitmap = new BitmapImage(new Uri(selectedFileName));
+
+                // Создаем новое изображение и текстовый блок для названия
+                Image newImage = new Image
+                {
+                    Source = bitmap,
+                    Width = 200,
+                    Height = 200,
+                    Margin = new Thickness(10)
+                };
+
+                string fileName = System.IO.Path.GetFileName(selectedFileName);
+                TextBlock newTextBlock = new TextBlock
+                {
+                    Text = fileName.Length > 30 ? fileName.Substring(0, 30) + "..." : fileName,
+                    MaxWidth = 200,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(10)
+                };
+
+                // Добавляем их в StackPanel перед кнопкой
+                ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newImage);
+                ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newTextBlock);
+            }
+        }
+
     }
 }
