@@ -82,14 +82,16 @@
             <Viewbox HorizontalAlignment="Left" MaxWidth="691" MaxHeight="48" Grid.Row="0" Margin="3">
                 <Label Content="Изображение (необязательно)" Style="{StaticResource DefaultText}" Padding="-10"/>
             </Viewbox>
-            <StackPanel Grid.Row="1" x:Name="ImagesPanel" Margin="10">
-                <Button x:Name="AddImageButton" Click="AddImageButton_Click" Style="{StaticResource AddImageButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="\Model\Resources\Image-Window\Page-TaskTransfer\ImageIcon.png" Width="70" Height="70" Margin="5,0,5,0"/>
-                        <TextBlock Text="Добавить изображение" VerticalAlignment="Center" FontSize="25" Foreground="White"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="200">
+                <StackPanel x:Name="ImagesPanel" Margin="10">
+                    <Button x:Name="AddImageButton" Click="AddImageButton_Click" Style="{StaticResource AddImageButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="\Model\Resources\Image-Window\Page-TaskTransfer\ImageIcon.png" Width="80" Height="80" Margin="5,0,5,0"/>
+                            <TextBlock Text="Добавить изображение" VerticalAlignment="Center" Foreground="White" FontSize="25"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

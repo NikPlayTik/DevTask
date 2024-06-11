@@ -48,8 +48,8 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 Image newImage = new Image
                 {
                     Source = bitmap,
-                    Width = 200,
-                    Height = 200,
+                    Width = bitmap.PixelWidth,
+                    Height = bitmap.PixelHeight,
                     Margin = new Thickness(10)
                 };
 
@@ -57,9 +57,11 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 TextBlock newTextBlock = new TextBlock
                 {
                     Text = fileName.Length > 30 ? fileName.Substring(0, 30) + "..." : fileName,
-                    MaxWidth = 200,
+                    MaxWidth = bitmap.PixelWidth,
                     TextWrapping = TextWrapping.Wrap,
-                    Margin = new Thickness(10)
+                    Margin = new Thickness(10),
+                    Foreground = Brushes.White,
+                    FontSize = 25
                 };
 
                 // Добавляем их в StackPanel перед кнопкой
@@ -67,6 +69,5 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newTextBlock);
             }
         }
-
     }
 }
