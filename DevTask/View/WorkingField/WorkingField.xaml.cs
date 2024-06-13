@@ -1,4 +1,5 @@
 ﻿using DevTask.View.Auth;
+using DevTask.View.WorkingField;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,6 +99,11 @@ namespace DevTask.View.WorkingField
             StatusFrame.Content = taskTransferPage;
         }
 
-
+        // Обработчик событий для кнопки "Все задачи"
+        private void AllTasksButton_Click(object sender, RoutedEventArgs e)
+        {
+            var allTasksPage = new Page_AllTasks.Page_AllTasks();
+            StatusFrame.Content = allTasksPage;
+        }
     }
 }
