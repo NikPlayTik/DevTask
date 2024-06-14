@@ -1,21 +1,33 @@
 ﻿using DevTask.View.Auth;
+using DevTask.View.WindowAddProjects;
 using DevTask.View.WorkingField;
+using DevTask.Model.ClassProject;
+using DevTask.Model.ClassTask;
+using DevTask.Model.ClassUser;
+using Firebase.Database;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Firebase.Database.Query;
 
 namespace DevTask.View.WorkingField
 {
     public partial class WorkingField : Page
     {
         private Frame _mainFrame;
+        private string _currentUserId;
+        private const string FirebaseAppUri = "https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/";
+        private FirebaseClient _client;
 
-        public WorkingField(Frame mainFrame)
+        public WorkingField(Frame mainFrame, string currentUserId)
         {
             InitializeComponent();
             _mainFrame = mainFrame;
+            _client = new FirebaseClient(FirebaseAppUri);
+            _currentUserId = currentUserId;
+            LoadProjects();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -104,6 +116,43 @@ namespace DevTask.View.WorkingField
         {
             var allTasksPage = new Page_AllTasks.Page_AllTasks();
             StatusFrame.Content = allTasksPage;
+        }
+
+        private void CreateProjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var windowAddProject = new WindowAddProject(_currentUserId);
+            windowAddProject.ShowDialog();
+            LoadProjects(); // Обновление списка проектов после создания нового
+        }
+
+        private async void LoadProjects()
+        {
+            ProjectComboBox.Items.Clear();
+
+            // Добавляем элемент "Создать проект" в начале списка
+            ProjectComboBox.Items.Add(new ComboBoxItem { Content = "Создать проект", Tag = "create_project" });
+
+            var user = await _client.Child("Users").Child(_currentUserId).OnceSingleAsync<User>();
+            var projects = await _client.Child("Projects").OnceAsync<Project>();
+
+            foreach (var project in projects)
+            {
+                if (user.Projects.Contains(project.Object.Id))
+                {
+                    ProjectComboBox.Items.Add(new ComboBoxItem { Content = project.Object.Name, Tag = project.Object.Id });
+                }
+            }
+        }
+
+        private void ProjectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProjectComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                if (selectedItem.Tag.ToString() == "create_project")
+                {
+                    CreateProjectButton_Click(sender, e);
+                }
+            }
         }
     }
 }

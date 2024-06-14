@@ -34,5 +34,17 @@ namespace DevTask.Properties {
                 this["Username"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentUserId {
+            get {
+                return ((string)(this["CurrentUserId"]));
+            }
+            set {
+                this["CurrentUserId"] = value;
+            }
+        }
     }
 }

@@ -321,18 +321,18 @@
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <Border Name="Border"
-            Grid.ColumnSpan="2"
-            Background="#E09C3F"
-            BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}"
-            CornerRadius="38" />
+                    Grid.ColumnSpan="2"
+                    Background="#E09C3F"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="38" />
                 <ContentPresenter
-            VerticalAlignment="Center"
-            Margin="2,2,23,2"
-            Content="{TemplateBinding Content}"
-            ContentTemplate="{TemplateBinding ContentTemplate}"
-            Name="ContentSite"
-            IsHitTestVisible="False" />
+                VerticalAlignment="Center"
+                Margin="2,2,23,2"
+                Content="{TemplateBinding Content}"
+                ContentTemplate="{TemplateBinding ContentTemplate}"
+                Name="ContentSite"
+                IsHitTestVisible="False" />
                 <Grid x:Name="ArrowGrid" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="27">
                     <Grid.RenderTransform>
                         <RotateTransform x:Name="ArrowRotateTransform" Angle="0" CenterX="15.5" CenterY="13.5" />
@@ -401,7 +401,7 @@
             <Setter Property="Background" Value="#E09C3F"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontFamily" Value="Cygre Medium"/>
-            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontSize" Value="30"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="5"/>
@@ -445,8 +445,8 @@
                                     Margin="0,20,0,20"/>
                                     <ScrollViewer Margin="33,50,33,50"
                                           SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True"
-                                            KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                            <StackPanel IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
                                 </Grid>
                             </Popup>
@@ -563,8 +563,39 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
-        
+
+        <!-- !DANGER! -->
+        <!-- Подложка задачи -->
+        <Style x:Key="TaskCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E09C3F"/>
+            <Setter Property="CornerRadius" Value="40"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Opacity="0.2" ShadowDepth="4"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для текста описания -->
+        <Style x:Key="DescriptionTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <!-- Стиль для аватарок -->
+        <Style x:Key="AvatarStyle" TargetType="Image">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

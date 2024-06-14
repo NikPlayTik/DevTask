@@ -83,6 +83,9 @@ namespace DevTask.View.Registration
             // Установка Id пользователя равным уникальному ключу Firebase
             newUser.Id = firebaseObject.Key;
 
+            // Получение уникального ключа Firebase
+            string currentUserId = firebaseObject.Key;
+
             // Обновление пользователя с новым Id
             await _client.Child("Users").Child(firebaseObject.Key).PutAsync(newUser);
 
@@ -90,7 +93,7 @@ namespace DevTask.View.Registration
             CustomDialog.CustomDialog.Show("Вы успешно зарегистрировались!", Brushes.Green);
 
             // Перенаправление пользователя на рабочее поле и отображение данных пользователя
-            var workingFieldPage = new WorkingField.WorkingField(_mainFrame);
+            var workingFieldPage = new WorkingField.WorkingField(_mainFrame, currentUserId);
             _mainFrame.Content = workingFieldPage;
             workingFieldPage.ShowUserDetails(username, gravatarUrl);
         }

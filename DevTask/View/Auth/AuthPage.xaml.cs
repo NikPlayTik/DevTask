@@ -35,6 +35,7 @@ namespace DevTask.View.Auth
             // Проверка наличия пользователя с таким именем и паролем
             var firebaseUser = users.FirstOrDefault(user => user.Object.Username == username && user.Object.Password == password);
 
+            // В методе LoginButton_Click, после успешной аутентификации
             if (firebaseUser != null)
             {
                 string firebaseUsername = firebaseUser.Object.Username;
@@ -44,7 +45,10 @@ namespace DevTask.View.Auth
                 Properties.Settings.Default.Username = firebaseUsername;
                 Properties.Settings.Default.Save();
 
-                var workingFieldPage = new WorkingField.WorkingField(_mainFrame);
+                // Получение текущего пользователя
+                string currentUserId = firebaseUser.Key;
+
+                var workingFieldPage = new WorkingField.WorkingField(_mainFrame, currentUserId);
                 _mainFrame.Content = workingFieldPage;
                 workingFieldPage.ShowUserDetails(firebaseUsername, gravatarUrl);
             }

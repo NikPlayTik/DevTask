@@ -14,5 +14,6 @@ namespace DevTask.Model.ClassUser
         public string Password { get; set; }
         public string ProfileLetter { get; set; }
         public string GravatarUrl { get; set; }
+        public List<string> Projects { get; set; } = new List<string>();
     }
 }

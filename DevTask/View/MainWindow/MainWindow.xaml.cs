@@ -28,8 +28,11 @@ namespace DevTask.View.MainWindow
             // Проверка, есть ли сохраненный логин
             if (!string.IsNullOrEmpty(Properties.Settings.Default.Username))
             {
+                // Получение текущего идентификатора пользователя из настроек
+                string currentUserId = Properties.Settings.Default.CurrentUserId;
+
                 // Переход на рабочее поле, если пользователь уже вошел
-                var workingFieldPage = new WorkingField.WorkingField(MainFrame);
+                var workingFieldPage = new WorkingField.WorkingField(MainFrame, currentUserId);
                 MainFrame.Content = workingFieldPage;
                 // Передача данных пользователя
                 workingFieldPage.ShowUserDetails(Properties.Settings.Default.Username, null); // GravatarUrl может быть загружен отдельно
