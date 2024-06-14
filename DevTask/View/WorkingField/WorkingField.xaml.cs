@@ -30,6 +30,7 @@ namespace DevTask.View.WorkingField
             LoadProjects();
         }
 
+        // Выход с аккаунта
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             // Очистка логина из Settings
@@ -40,6 +41,7 @@ namespace DevTask.View.WorkingField
             _mainFrame.Content = new AuthPage(_mainFrame);
         }
 
+        // Вывод аватарки
         public void ShowUserDetails(string username, string gravatarUrl)
         {
             SetGreeting(username);
@@ -69,6 +71,7 @@ namespace DevTask.View.WorkingField
             }
         }
 
+        // Установка инициал по умолчанию
         private void SetInitials(string username)
         {
             InitialsTextBlock.Text = username.Substring(0, 1).ToUpper();
@@ -76,6 +79,7 @@ namespace DevTask.View.WorkingField
             AvatarEllipse.Fill = new SolidColorBrush(Colors.Gray);
         }
 
+        // Установка заголовка приветствия
         private void SetGreeting(string username)
         {
             var currentHour = DateTime.Now.Hour;
@@ -118,6 +122,7 @@ namespace DevTask.View.WorkingField
             StatusFrame.Content = allTasksPage;
         }
 
+        // Кнопка "Создать новый проект"
         private void CreateProjectButton_Click(object sender, RoutedEventArgs e)
         {
             var windowAddProject = new WindowAddProject(_currentUserId);
@@ -125,12 +130,17 @@ namespace DevTask.View.WorkingField
             LoadProjects(); // Обновление списка проектов после создания нового
         }
 
+        // Загрузка проекта
         private async void LoadProjects()
         {
             ProjectComboBox.Items.Clear();
 
             // Добавляем элемент "Создать проект" в начале списка
-            ProjectComboBox.Items.Add(new ComboBoxItem { Content = "Создать проект", Tag = "create_project" });
+            ProjectComboBox.Items.Add(new ComboBoxItem 
+            { 
+                Content = "Создать проект", 
+                Tag = "create_project" 
+            });
 
             var user = await _client.Child("Users").Child(_currentUserId).OnceSingleAsync<User>();
             var projects = await _client.Child("Projects").OnceAsync<Project>();
@@ -139,11 +149,16 @@ namespace DevTask.View.WorkingField
             {
                 if (user.Projects.Contains(project.Object.Id))
                 {
-                    ProjectComboBox.Items.Add(new ComboBoxItem { Content = project.Object.Name, Tag = project.Object.Id });
+                    ProjectComboBox.Items.Add(new ComboBoxItem 
+                    { 
+                        Content = project.Object.Name, 
+                        Tag = project.Object.Id 
+                    });
                 }
             }
         }
 
+        // Выделенный элемент ComboBox
         private void ProjectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ProjectComboBox.SelectedItem is ComboBoxItem selectedItem)
