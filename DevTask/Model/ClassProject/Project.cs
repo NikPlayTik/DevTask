@@ -12,5 +12,10 @@ namespace DevTask.Model.ClassProject
         public string Name { get; set; }
         public string AdminId { get; set; }
         public List<string> Members { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

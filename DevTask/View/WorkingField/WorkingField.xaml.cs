@@ -4,6 +4,7 @@ using DevTask.View.WorkingField;
 using DevTask.Model.ClassProject;
 using DevTask.Model.ClassTask;
 using DevTask.Model.ClassUser;
+using DevTask.ViewModel.Projects;
 using Firebase.Database;
 using System;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Firebase.Database.Query;
+using System.Collections.ObjectModel;
 
 namespace DevTask.View.WorkingField
 {
@@ -20,6 +22,8 @@ namespace DevTask.View.WorkingField
         private string _currentUserId;
         private const string FirebaseAppUri = "https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/";
         private FirebaseClient _client;
+        private ProjectsVM _viewModel;
+        public ObservableCollection<Project> Projects { get; set; }
 
         public WorkingField(Frame mainFrame, string currentUserId)
         {
@@ -27,6 +31,11 @@ namespace DevTask.View.WorkingField
             _mainFrame = mainFrame;
             _client = new FirebaseClient(FirebaseAppUri);
             _currentUserId = currentUserId;
+            _viewModel = (ProjectsVM)DataContext;
+            _viewModel.CurrentUserId = _currentUserId;
+            _viewModel.LoadProjects(_currentUserId);
+            Projects = new ObservableCollection<Project>();
+            ProjectComboBox.ItemsSource = Projects;
             LoadProjects();
         }
 
@@ -127,19 +136,35 @@ namespace DevTask.View.WorkingField
         {
             var windowAddProject = new WindowAddProject(_currentUserId);
             windowAddProject.ShowDialog();
-            LoadProjects(); // Обновление списка проектов после создания нового
+            _viewModel.LoadProjects(_currentUserId); // Обновление списка проектов после создания нового
+        }
+
+        // Выделенный элемент ComboBox
+        private void ProjectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProjectComboBox.SelectedItem is Project selectedProject)
+            {
+                if (selectedProject.Id == "create_project")
+                {
+                    CreateProjectButton_Click(sender, e);
+                }
+                else
+                {
+                    // Handle project selection
+                }
+            }
         }
 
         // Загрузка проекта
         private async void LoadProjects()
         {
-            ProjectComboBox.Items.Clear();
+            Projects.Clear();
 
-            // Добавляем элемент "Создать проект" в начале списка
-            ProjectComboBox.Items.Add(new ComboBoxItem 
-            { 
-                Content = "Создать проект", 
-                Tag = "create_project" 
+            // Добавляем элемент "Создать проект" в начало списка
+            Projects.Add(new Project
+            {
+                Id = "create_project",
+                Name = "Создать проект"
             });
 
             var user = await _client.Child("Users").Child(_currentUserId).OnceSingleAsync<User>();
@@ -147,25 +172,13 @@ namespace DevTask.View.WorkingField
 
             foreach (var project in projects)
             {
-                if (user.Projects.Contains(project.Object.Id))
+                if (user.Projects.Contains(project.Key))
                 {
-                    ProjectComboBox.Items.Add(new ComboBoxItem 
-                    { 
-                        Content = project.Object.Name, 
-                        Tag = project.Object.Id 
+                    Projects.Add(new Project
+                    {
+                        Id = project.Key,
+                        Name = project.Object.Name
                     });
-                }
-            }
-        }
-
-        // Выделенный элемент ComboBox
-        private void ProjectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ProjectComboBox.SelectedItem is ComboBoxItem selectedItem)
-            {
-                if (selectedItem.Tag.ToString() == "create_project")
-                {
-                    CreateProjectButton_Click(sender, e);
                 }
             }
         }

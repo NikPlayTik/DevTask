@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:DevTask.View.WorkingField"
+      xmlns:vm="clr-namespace:DevTask.ViewModel.Projects"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1920"
       MinHeight="400" MinWidth="600" Width="1920" Height="1080" Background="#0D2746">
 
+    <Page.DataContext>
+        <vm:ProjectsVM x:Name="ViewModel"/>
+    </Page.DataContext>
+    
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*"/>
@@ -46,8 +51,11 @@
 
         <!-- Выпадающий список -->
         <Viewbox Grid.Column="2" Grid.Row="0" MinWidth="310" MaxWidth="310" MinHeight="78" MaxHeight="78" HorizontalAlignment="Right">
-            <ComboBox x:Name="ProjectComboBox" Style="{StaticResource CustomComboBoxStyle}" VerticalAlignment="Center" SelectionChanged="ProjectComboBox_SelectionChanged">
-                <ComboBoxItem Content="Создать проект" Tag="create_project"/>
+            <ComboBox x:Name="ProjectComboBox" Style="{StaticResource CustomComboBoxStyle}" VerticalAlignment="Center"
+              ItemsSource="{Binding Projects}" 
+              DisplayMemberPath="Name"
+              SelectedValuePath="Id"
+              SelectionChanged="ProjectComboBox_SelectionChanged">
             </ComboBox>
         </Viewbox>
 
