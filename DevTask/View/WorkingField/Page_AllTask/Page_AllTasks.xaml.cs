@@ -115,15 +115,18 @@ namespace DevTask.View.WorkingField.Page_AllTask
             {
                 Background = new SolidColorBrush(Color.FromRgb(224, 156, 63)),
                 CornerRadius = new CornerRadius(40),
-                Margin = new Thickness(0,50,0,0),
+                Margin = new Thickness(-10, 50, 0, 0),
                 Padding = new Thickness(40),
                 Height = 384,
-                MinWidth = 378, 
-                MaxWidth = 378,
+                MinWidth = 381,
+                MaxWidth = 381,
                 HorizontalAlignment = HorizontalAlignment.Left
             };
 
-            var stackPanel = new StackPanel();
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             var description = new TextBlock
             {
@@ -135,7 +138,9 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 MaxHeight = 143,
                 Margin = new Thickness(0, 0, 0, 10)
             };
-            stackPanel.Children.Add(description);
+            Grid.SetRow(description, 0);
+            Grid.SetRowSpan(description, 2);
+            grid.Children.Add(description);
 
             var avatars = new StackPanel { Orientation = Orientation.Horizontal };
 
@@ -176,79 +181,12 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 }
             }
 
-            stackPanel.Children.Add(avatars);
-            border.Child = stackPanel;
+            Grid.SetRow(avatars, 2);
+            grid.Children.Add(avatars);
+
+            border.Child = grid;
 
             return border;
         }
-
-        private async void OnTimerTick(object sender, EventArgs e)
-        {
-            await LoadTasks();
-        }
-
-        //private Border CreateTaskControl(TaskModel task)
-        //{
-        //    var border = new Border
-        //    {
-        //        Background = new SolidColorBrush(Color.FromRgb(224, 156, 63)),
-        //        CornerRadius = new CornerRadius(40),
-        //        Margin = new Thickness(5),
-        //        Padding = new Thickness(20),
-        //        MinWidth = 378,
-        //        MaxWidth = 378
-        //    };
-
-        //    var stackPanel = new StackPanel();
-
-        //    var description = new TextBlock
-        //    {
-        //        Text = task.Description,
-        //        TextWrapping = TextWrapping.Wrap,
-        //        Margin = new Thickness(0, 0, 0, 10)
-        //    };
-        //    stackPanel.Children.Add(description);
-
-        //    var avatars = new StackPanel { Orientation = Orientation.Horizontal };
-
-        //    if (_users.TryGetValue(task.SenderId, out var sender))
-        //    {
-        //        var senderAvatar = new Image
-        //        {
-        //            Source = new BitmapImage(new Uri(sender.GravatarUrl)),
-        //            Width = 78.7,
-        //            Height = 78.7,
-        //            Margin = new Thickness(5)
-        //        };
-        //        avatars.Children.Add(senderAvatar);
-        //    }
-
-        //    var arrow = new TextBlock
-        //    {
-        //        Text = "→",
-        //        VerticalAlignment = VerticalAlignment.Center,
-        //        Margin = new Thickness(5),
-        //        FontSize = 64,
-        //        FontFamily = new FontFamily("Inter")
-        //    };
-        //    avatars.Children.Add(arrow);
-
-        //    if (_users.TryGetValue(task.ReceiverId, out var receiver))
-        //    {
-        //        var receiverAvatar = new Image
-        //        {
-        //            Source = new BitmapImage(new Uri(receiver.GravatarUrl)),
-        //            Width = 78.7,
-        //            Height = 78.7,
-        //            Margin = new Thickness(5)
-        //        };
-        //        avatars.Children.Add(receiverAvatar);
-        //    }
-
-        //    stackPanel.Children.Add(avatars);
-        //    border.Child = stackPanel;
-
-        //    return border;
-        //}
     }
 }
