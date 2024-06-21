@@ -33,18 +33,12 @@ namespace DevTask.View.WorkingField.Page_AllTask
         private FirebaseClient _client;
         private Dictionary<string, User> _users;
         private string _projectId;
-        private DispatcherTimer _timer;
 
         public Page_AllTasks(string projectId)
         {
             InitializeComponent();
             _client = new FirebaseClient(FirebaseAppUri);
             _projectId = projectId;
-
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(5);
-            _timer.Tick += OnTimerTick;
-            _timer.Start();
 
             LoadData();
             Debug.WriteLine(LoadTasks());
@@ -121,8 +115,8 @@ namespace DevTask.View.WorkingField.Page_AllTask
             {
                 Background = new SolidColorBrush(Color.FromRgb(224, 156, 63)),
                 CornerRadius = new CornerRadius(40),
-                Margin = new Thickness(5),
-                Padding = new Thickness(20),
+                Margin = new Thickness(0,50,0,0),
+                Padding = new Thickness(40),
                 Height = 384,
                 MinWidth = 378, 
                 MaxWidth = 378,
@@ -135,6 +129,10 @@ namespace DevTask.View.WorkingField.Page_AllTask
             {
                 Text = task.Description ?? "No Description",
                 TextWrapping = TextWrapping.Wrap,
+                FontSize = 40,
+                FontFamily = new FontFamily("Cygre"),
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                MaxHeight = 143,
                 Margin = new Thickness(0, 0, 0, 10)
             };
             stackPanel.Children.Add(description);
@@ -183,7 +181,6 @@ namespace DevTask.View.WorkingField.Page_AllTask
 
             return border;
         }
-
 
         private async void OnTimerTick(object sender, EventArgs e)
         {
