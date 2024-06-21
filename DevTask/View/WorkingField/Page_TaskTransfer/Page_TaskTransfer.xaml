@@ -14,6 +14,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.1*"/>
@@ -54,9 +55,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Viewbox MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
-                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" >
-
-                    </ComboBox>
+                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" />
                 </Viewbox>
             </Grid>
 
@@ -76,7 +75,7 @@
             </Grid>
 
             <!-- Изображения -->
-            <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -95,6 +94,11 @@
                         </Button>
                     </StackPanel>
                 </ScrollViewer>
+            </Grid>
+
+            <!-- Кнопка сохранения задачи -->
+            <Grid Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="SaveTaskButton" Click="SaveTaskButton_Click" Style="{StaticResource UnselectedButtonStyle}" Width="300" Height="110" Content="Сохранить задачу" Background="Transparent"/>
             </Grid>
         </Grid>
     </ScrollViewer>

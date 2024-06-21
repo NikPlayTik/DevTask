@@ -1,6 +1,7 @@
 ﻿using DevTask.View.Registration;
 using DevTask.View.WorkingField;
 using Firebase.Database;
+using Firebase.Database.Query;
 using System;
 using System.Linq;
 using System.Windows;
@@ -48,7 +49,21 @@ namespace DevTask.View.Auth
                 // Получение текущего пользователя
                 string currentUserId = firebaseUser.Key;
 
-                var workingFieldPage = new WorkingField.WorkingField(_mainFrame, currentUserId);
+                // Получение currentProjectId для текущего пользователя
+                var userProjects = await _client
+                    .Child("UserProjects")
+                    .Child(currentUserId)
+                    .OnceAsync<dynamic>();
+
+                string currentProjectId = userProjects.FirstOrDefault()?.Key;
+
+                if (string.IsNullOrEmpty(currentProjectId))
+                {
+                    CustomDialog.CustomDialog.Show("Не удалось найти текущий проект пользователя.", Brushes.Red);
+                    return;
+                }
+
+                var workingFieldPage = new WorkingField.WorkingField(_mainFrame, currentUserId, currentProjectId);
                 _mainFrame.Content = workingFieldPage;
                 workingFieldPage.ShowUserDetails(firebaseUsername, gravatarUrl);
             }

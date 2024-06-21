@@ -1,4 +1,5 @@
-﻿using DevTask.View.Auth;
+﻿using DevTask.Model.ClassProject;
+using DevTask.View.Auth;
 using DevTask.View.WorkingField;
 using Firebase.Auth;
 using Firebase.Database;
@@ -89,11 +90,25 @@ namespace DevTask.View.Registration
             // Обновление пользователя с новым Id
             await _client.Child("Users").Child(firebaseObject.Key).PutAsync(newUser);
 
+            // Создание нового проекта для пользователя
+            var newProject = new Project
+            {
+                Name = "Default Project",
+                AdminId = currentUserId,
+                Members = new List<string> { currentUserId }
+            };
+
+            var projectObject = await _client.Child("Projects").PostAsync(newProject);
+            string currentProjectId = projectObject.Key;
+
+            // Добавление проекта пользователю
+            await _client.Child("UserProjects").Child(currentUserId).Child(currentProjectId).PutAsync(true);
+
             // Сообщение об успешной регистрации
             CustomDialog.CustomDialog.Show("Вы успешно зарегистрировались!", Brushes.Green);
 
             // Перенаправление пользователя на рабочее поле и отображение данных пользователя
-            var workingFieldPage = new WorkingField.WorkingField(_mainFrame, currentUserId);
+            var workingFieldPage = new WorkingField.WorkingField(_mainFrame, currentUserId, currentProjectId);
             _mainFrame.Content = workingFieldPage;
             workingFieldPage.ShowUserDetails(username, gravatarUrl);
         }

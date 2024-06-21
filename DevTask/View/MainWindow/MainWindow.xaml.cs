@@ -1,5 +1,7 @@
 ﻿using DevTask.View.Auth;
 using DevTask.View.Registration;
+using Firebase.Database;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +33,8 @@ namespace DevTask.View.MainWindow
                 // Получение текущего идентификатора пользователя из настроек
                 string currentUserId = Properties.Settings.Default.CurrentUserId;
 
-                // Переход на рабочее поле, если пользователь уже вошел
-                var workingFieldPage = new WorkingField.WorkingField(MainFrame, currentUserId);
-                MainFrame.Content = workingFieldPage;
-                // Передача данных пользователя
-                workingFieldPage.ShowUserDetails(Properties.Settings.Default.Username, null); // GravatarUrl может быть загружен отдельно
+                // Загрузка данных пользователя и текущего проекта из Firebase
+                LoadUserData(currentUserId);
             }
             else
             {
@@ -76,6 +75,45 @@ namespace DevTask.View.MainWindow
             }
 
             _isResizing = false;
+        }
+        private async void LoadUserData(string currentUserId)
+        {
+            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+
+            // Получение данных пользователя
+            var user = await firebaseClient
+                .Child("Users")
+                .Child(currentUserId)
+                .OnceSingleAsync<Model.ClassUser.User>();
+
+            if (user == null)
+            {
+                CustomDialog.CustomDialog.Show("Не удалось загрузить данные пользователя.", Brushes.Red);
+                MainFrame.Content = new AuthPage(MainFrame);
+                return;
+            }
+
+            // Получение идентификатора текущего проекта для пользователя
+            var userProjects = await firebaseClient
+                .Child("UserProjects")
+                .Child(currentUserId)
+                .OnceAsync<dynamic>();
+
+            string currentProjectId = userProjects.FirstOrDefault()?.Key;
+
+            if (string.IsNullOrEmpty(currentProjectId))
+            {
+                CustomDialog.CustomDialog.Show("Не удалось найти текущий проект пользователя.", Brushes.Red);
+                MainFrame.Content = new AuthPage(MainFrame);
+                return;
+            }
+
+            // Переход на рабочее поле
+            var workingFieldPage = new WorkingField.WorkingField(MainFrame, currentUserId, currentProjectId);
+            MainFrame.Content = workingFieldPage;
+
+            // Передача данных пользователя
+            workingFieldPage.ShowUserDetails(user.Username, user.GravatarUrl);
         }
     }
 }

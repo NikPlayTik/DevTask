@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace DevTask.ViewModel.Tasks
 {
-    public class TaskVM
+    public class TasksVM
     {
         public string Description { get; set; }
         public BitmapImage SenderAvatar { get; set; }

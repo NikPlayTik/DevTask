@@ -66,7 +66,7 @@ namespace DevTask.View.WindowAddProjects
             }
 
             var projectResult = await _client.Child("Projects").PostAsync(project);
-            return projectResult.Key; // Возвращаем ключ нового проекта
+            return projectResult.Key;
         }
     }
 }

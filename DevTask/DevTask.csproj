@@ -45,6 +45,7 @@
   <ItemGroup>
     <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
     <PackageReference Include="MaterialDesignThemes.Wpf" Version="1.0.1" />
   </ItemGroup>
 

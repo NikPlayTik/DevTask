@@ -17,11 +17,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,10" />
-            <Image Grid.Row="1" Grid.Column="0" />
+            <Image Grid.Row="1" Grid.Column="0" Source="{Binding SenderAvatarUrl}" />
             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Source="{Binding SenderAvatar}" Width="78.7" Height="78.7" Margin="5"/>
+                <Image Source="{Binding SenderAvatarUrl}" Width="78.7" Height="78.7" Margin="5"/>
                 <TextBlock Text="→" VerticalAlignment="Center" Margin="5" FontSize="64" FontFamily="Inter"/>
-                <Image Source="{Binding ReceiverAvatar}" Width="78.7" Height="78.7" Margin="5" />
+                <Image Source="{Binding ReceiverAvatarUrl}" Width="78.7" Height="78.7" Margin="5" />
             </StackPanel>
         </Grid>
     </Border>

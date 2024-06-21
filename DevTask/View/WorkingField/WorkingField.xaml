@@ -4,15 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:DevTask.View.WorkingField"
-      xmlns:vm="clr-namespace:DevTask.ViewModel.Projects"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1920"
       MinHeight="400" MinWidth="600" Width="1920" Height="1080" Background="#0D2746">
 
-    <Page.DataContext>
-        <vm:ProjectsVM x:Name="ViewModel"/>
-    </Page.DataContext>
-    
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*"/>
@@ -49,16 +44,6 @@
             <Label Grid.Column="0" Grid.Row="0" x:Name="GreetingLabel" Content="" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="2"/>
         </Viewbox>
 
-        <!-- Выпадающий список -->
-        <Viewbox Grid.Column="2" Grid.Row="0" MinWidth="310" MaxWidth="310" MinHeight="78" MaxHeight="78" HorizontalAlignment="Right">
-            <ComboBox x:Name="ProjectComboBox" Style="{StaticResource CustomComboBoxStyle}" VerticalAlignment="Center"
-              ItemsSource="{Binding Projects}" 
-              DisplayMemberPath="Name"
-              SelectedValuePath="Id"
-              SelectionChanged="ProjectComboBox_SelectionChanged">
-            </ComboBox>
-        </Viewbox>
-
         <!-- Календарь -->
         <Viewbox Grid.Column="0" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Left">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -69,7 +54,7 @@
             </StackPanel>
         </Viewbox>
 
-        <!--Frame для рабочего поля-->
+        <!-- Frame для рабочего поля -->
         <Frame Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" Grid.ColumnSpan="2" x:Name="StatusFrame"/>
 
         <!-- Все задачи -->
@@ -105,7 +90,6 @@
                 </TextBlock>
             </StackPanel>
         </Viewbox>
-
 
         <!-- Выйти из аккаунта -->
         <Viewbox Grid.Column="0" Grid.Row="5" MinWidth="115" MinHeight="115" MaxWidth="115" MaxHeight="115" HorizontalAlignment="Left">

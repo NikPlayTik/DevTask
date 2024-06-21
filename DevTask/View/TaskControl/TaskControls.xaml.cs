@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace DevTask.View.TaskControl
 {
-    /// <summary>
-    /// Логика взаимодействия для TaskControls.xaml
-    /// </summary>
     public partial class TaskControls : UserControl
     {
         public TaskControls()

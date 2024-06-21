@@ -13,14 +13,45 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DevTask.View.WorkingField.Page_TaskTransfer;
+using DevTask.Model.ClassTask;
+using Firebase.Database;
+using Firebase.Database.Query;
+using DevTask.Model.ClassProject;
+using Firebase.Storage;
+using System.IO;
 
 namespace DevTask.View.WorkingField.Page_TaskTransfer
 {
     public partial class Page_TaskTransfer : Page
     {
-        public Page_TaskTransfer()
+        private string _currentUserId;
+        private string _currentProjectId;
+        private string _selectedImagePath;
+
+        public Page_TaskTransfer(string currentUserId, string currentProjectId)
         {
             InitializeComponent();
+            _currentUserId = currentUserId;
+            _currentProjectId = currentProjectId;
+            LoadUsers();
+        }
+
+        private async void LoadUsers()
+        {
+            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+            var project = await firebaseClient.Child("Projects").Child(_currentProjectId).OnceSingleAsync<Project>();
+            var users = await firebaseClient.Child("Users").OnceAsync<Model.ClassUser.User>();
+
+            var filteredUsers = users.Where(u => project.Members.Contains(u.Key)).Select(u => new
+            {
+                Username = u.Object.Username,
+                UserId = u.Key
+            }).ToList();
+
+            TaskTransferComboBox.ItemsSource = filteredUsers;
+            TaskTransferComboBox.DisplayMemberPath = "Username";
+            TaskTransferComboBox.SelectedValuePath = "UserId";
         }
 
         private void TaskDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -41,19 +72,17 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
 
             if (openFileDialog.ShowDialog() == true)
             {
-                string selectedFileName = openFileDialog.FileName;
-                BitmapImage bitmap = new BitmapImage(new Uri(selectedFileName));
+                _selectedImagePath = openFileDialog.FileName;
+                BitmapImage bitmap = new BitmapImage(new Uri(_selectedImagePath, UriKind.RelativeOrAbsolute));
 
-                // Создаем новое изображение и текстовый блок для названия
                 Image newImage = new Image
                 {
                     Source = bitmap,
-                    MaxWidth = 1000,  // Устанавливаем максимальную ширину
-                    MaxHeight = 1000, // Устанавливаем максимальную высоту
+                    MaxWidth = 1000,
+                    MaxHeight = 1000,
                     Stretch = Stretch.UniformToFill
                 };
 
-                // Создаем Border для закругления краев изображения
                 Border imageBorder = new Border
                 {
                     Width = 1000,
@@ -64,13 +93,12 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                     Child = newImage
                 };
 
-                // Создаем закругленный Clip для изображения
                 RectangleGeometry clipGeometry = new RectangleGeometry(new Rect(0, 0, 1000, 1000), 20, 20);
                 newImage.Clip = clipGeometry;
 
-                imageBorder.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем новый элемент на событие PreviewMouseWheel
+                imageBorder.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel;
 
-                string fileName = System.IO.Path.GetFileName(selectedFileName);
+                string fileName = System.IO.Path.GetFileName(_selectedImagePath);
                 TextBlock newTextBlock = new TextBlock
                 {
                     Text = fileName.Length > 30 ? fileName.Substring(0, 30) + "..." : fileName,
@@ -80,9 +108,8 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                     Foreground = Brushes.White,
                     FontSize = 25
                 };
-                newTextBlock.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel; // Подписываем TextBlock на событие PreviewMouseWheel
+                newTextBlock.PreviewMouseWheel += ImagesPanel_PreviewMouseWheel;
 
-                // Добавляем их в StackPanel перед кнопкой
                 ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, imageBorder);
                 ImagesPanel.Children.Insert(ImagesPanel.Children.Count - 1, newTextBlock);
             }
@@ -102,7 +129,67 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 double lineHeight = textBox.FontSize + textBox.FontFamily.LineSpacing;
                 double newHeight = lineCount * lineHeight;
 
-                textBox.Height = Math.Min(newHeight, 500); // Устанавливаем максимальную высоту 500
+                textBox.Height = Math.Min(newHeight, 570);
+            }
+        }
+
+        private async void SaveTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TaskTransferComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите пользователя для передачи задачи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var selectedUser = (dynamic)TaskTransferComboBox.SelectedItem;
+            string selectedUserId = selectedUser.UserId;
+
+            string description = DescriptionTextBox.Text;
+            DateTime? dueDate = TaskDatePicker.SelectedDate;
+
+            // Загрузка изображения в Firebase Storage
+            string imageUrl = await UploadImageToFirebaseStorage(_selectedImagePath);
+
+            var newTask = new TaskModel
+            {
+                Description = description,
+                DueDate = dueDate,
+                SenderId = _currentUserId,
+                ReceiverId = selectedUserId,
+                ProjectId = _currentProjectId,
+                ImageUrl = imageUrl
+            };
+
+            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+            await firebaseClient.Child("Tasks").PostAsync(newTask);
+
+            MessageBox.Show("Задача успешно передана.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private async Task<string> UploadImageToFirebaseStorage(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+            {
+                MessageBox.Show("Пожалуйста, выберите изображение.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            var storage = new FirebaseStorage("devtaskdb.appspot.com");
+            var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(imagePath);
+
+            // Использование MemoryStream для загрузки изображения
+            using (var fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+            using (var memoryStream = new MemoryStream())
+            {
+                await fileStream.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+
+                var task = storage.Child("images").Child(fileName).PutAsync(memoryStream);
+
+                // Ожидание завершения загрузки
+                var downloadUrl = await task;
+
+                return downloadUrl;
             }
         }
     }
