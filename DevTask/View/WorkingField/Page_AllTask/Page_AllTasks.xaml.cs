@@ -124,13 +124,22 @@ namespace DevTask.View.WorkingField.Page_AllTask
             };
 
             var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition 
+            { 
+                Height = new GridLength(1, GridUnitType.Star) 
+            });
+            grid.RowDefinitions.Add(new RowDefinition 
+            { 
+                Height = new GridLength(1, GridUnitType.Star) 
+            });
+            grid.RowDefinitions.Add(new RowDefinition 
+            { 
+                Height = new GridLength(1, GridUnitType.Star) 
+            });
 
             var description = new TextBlock
             {
-                Text = task.Description ?? "No Description",
+                Text = task.Description ?? "Нет описания",
                 TextWrapping = TextWrapping.Wrap,
                 FontSize = 40,
                 FontFamily = new FontFamily("Cygre"),
@@ -142,8 +151,13 @@ namespace DevTask.View.WorkingField.Page_AllTask
             Grid.SetRowSpan(description, 2);
             grid.Children.Add(description);
 
-            var avatars = new StackPanel { Orientation = Orientation.Horizontal };
+            var avatars = new StackPanel 
+            { 
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
 
+            // Отправитель задачи
             if (_users != null)
             {
                 if (!string.IsNullOrEmpty(task.SenderId) && _users.TryGetValue(task.SenderId, out var sender))
@@ -153,7 +167,8 @@ namespace DevTask.View.WorkingField.Page_AllTask
                         Source = new BitmapImage(new Uri(sender.GravatarUrl)),
                         Width = 78.7,
                         Height = 78.7,
-                        Margin = new Thickness(5)
+                        HorizontalAlignment = HorizontalAlignment.Center
+                        
                     };
                     avatars.Children.Add(senderAvatar);
                 }
@@ -162,12 +177,13 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 {
                     Text = "→",
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(5),
                     FontSize = 64,
+                    Margin = new Thickness(20, 0, 20, 0),
                     FontFamily = new FontFamily("Inter")
                 };
                 avatars.Children.Add(arrow);
 
+                // Принимающий задачу
                 if (!string.IsNullOrEmpty(task.ReceiverId) && _users.TryGetValue(task.ReceiverId, out var receiver))
                 {
                     var receiverAvatar = new Image
@@ -175,7 +191,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
                         Source = new BitmapImage(new Uri(receiver.GravatarUrl)),
                         Width = 78.7,
                         Height = 78.7,
-                        Margin = new Thickness(5)
+                        HorizontalAlignment = HorizontalAlignment.Center
                     };
                     avatars.Children.Add(receiverAvatar);
                 }
