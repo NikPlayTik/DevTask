@@ -214,7 +214,45 @@ namespace DevTask.View.WorkingField.Page_AllTask
 
             border.Child = grid;
 
+
+            // Контекстное меню для "Добавленной задачи"
+            border.ContextMenu = new ContextMenu();
+
+            // Добавьте пункт "Отправить на проверку"
+            var sendForReviewMenuItem = new MenuItem
+            {
+                Header = "Отправить на проверку",
+                IsEnabled = false,
+                //Command = new RelayCommand(param => SendTaskForReview(task))
+            };
+            border.ContextMenu.Items.Add(sendForReviewMenuItem);
+
+            // Добавьте разделитель
+            border.ContextMenu.Items.Add(new Separator());
+
+            // Добавьте пункт "Редактировать" (неактивный)
+            var editMenuItem = new MenuItem
+            {
+                Header = "Редактировать",
+                IsEnabled = false
+            };
+            border.ContextMenu.Items.Add(editMenuItem);
+
+            // Добавьте пункт "Удалить" (неактивный)
+            var deleteMenuItem = new MenuItem
+            {
+                Header = "Удалить",
+                IsEnabled = false
+            };
+            border.ContextMenu.Items.Add(deleteMenuItem);
+
             return border;
+        }
+
+        // Метод для обработки команды "Отправить на проверку"
+        private void SendTaskForReview(TaskModel task)
+        {
+            // Добавьте здесь код для отправки задачи на проверку
         }
     }
 }
