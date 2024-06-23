@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DevTask.View.MainWindow"
         mc:Ignorable="d"
         SizeChanged="Window_SizeChanged"
-        Title="DevTask" MinHeight="400" MinWidth="600" Width="1920" Height="1080" Background="#0D2746" WindowState="Maximized">
+        Title="DevTask" MinHeight="600" MinWidth="800" Background="#0D2746" WindowState="Maximized" Icon="/View/MainWindow/DevTasksIcon.png">
     <Viewbox>
         <Grid>
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Background="Transparent"/>

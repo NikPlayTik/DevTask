@@ -111,6 +111,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
 
         private Border CreateTaskControl(TaskModel task)
         {
+            // Плашка для задач
             var border = new Border
             {
                 Background = new SolidColorBrush(Color.FromRgb(224, 156, 63)),
@@ -137,6 +138,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 Height = new GridLength(1, GridUnitType.Star) 
             });
 
+            // Блок описания задачи
             var description = new TextBlock
             {
                 Text = task.Description ?? "Нет описания",
@@ -151,15 +153,17 @@ namespace DevTask.View.WorkingField.Page_AllTask
             Grid.SetRowSpan(description, 2);
             grid.Children.Add(description);
 
+            // Стэк панель для аватарок
             var avatars = new StackPanel 
             { 
                 Orientation = Orientation.Horizontal,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
-            // Отправитель задачи
+            // Блок проверки аватарок
             if (_users != null)
             {
+                // Отправитель задачи
                 if (!string.IsNullOrEmpty(task.SenderId) && _users.TryGetValue(task.SenderId, out var sender))
                 {
                     var senderAvatar = new Image
@@ -168,11 +172,15 @@ namespace DevTask.View.WorkingField.Page_AllTask
                         Width = 78.7,
                         Height = 78.7,
                         HorizontalAlignment = HorizontalAlignment.Center
-                        
                     };
+
+                    // Круглый аватар
+                    senderAvatar.Clip = new EllipseGeometry(new Point(senderAvatar.Width / 2, senderAvatar.Height / 2), senderAvatar.Width / 2, senderAvatar.Height / 2);
+
                     avatars.Children.Add(senderAvatar);
                 }
 
+                // Текст стрелки
                 var arrow = new TextBlock
                 {
                     Text = "→",
@@ -193,6 +201,10 @@ namespace DevTask.View.WorkingField.Page_AllTask
                         Height = 78.7,
                         HorizontalAlignment = HorizontalAlignment.Center
                     };
+
+                    // Круглый аватар
+                    receiverAvatar.Clip = new EllipseGeometry(new Point(receiverAvatar.Width / 2, receiverAvatar.Height / 2), receiverAvatar.Width / 2, receiverAvatar.Height / 2);
+
                     avatars.Children.Add(receiverAvatar);
                 }
             }

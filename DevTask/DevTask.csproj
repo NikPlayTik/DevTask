@@ -30,6 +30,7 @@
     <None Remove="Model\Resources\Image-Window\Window-Auth\Triangle.png" />
     <None Remove="Model\Resources\Image-Window\Window-Registration\Ellipse.png" />
     <None Remove="Model\Resources\Image-Window\Window-Registration\Illustration-registration.png" />
+    <None Remove="View\MainWindow\DevTasksIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +72,7 @@
 
   <ItemGroup>
     <Resource Include="Model\Resources\Image-Window\Window-Registration\Ellipse.png" />
+    <Resource Include="View\MainWindow\DevTasksIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
