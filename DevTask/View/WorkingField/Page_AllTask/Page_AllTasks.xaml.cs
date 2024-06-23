@@ -117,7 +117,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 Background = new SolidColorBrush(Color.FromRgb(224, 156, 63)),
                 CornerRadius = new CornerRadius(40),
                 Margin = new Thickness(-10, 50, 0, 0),
-                Padding = new Thickness(40),
+                Padding = new Thickness(30),
                 Height = 384,
                 MinWidth = 381,
                 MaxWidth = 381,
@@ -144,7 +144,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 Text = task.Description ?? "Нет описания",
                 TextWrapping = TextWrapping.Wrap,
                 FontSize = 40,
-                FontFamily = new FontFamily("Cygre"),
+                FontFamily = new FontFamily("Inter Medium"),
                 TextTrimming = TextTrimming.CharacterEllipsis,
                 MaxHeight = 143,
                 Margin = new Thickness(0, 0, 0, 10)
@@ -153,12 +153,14 @@ namespace DevTask.View.WorkingField.Page_AllTask
             Grid.SetRowSpan(description, 2);
             grid.Children.Add(description);
 
-            // Стэк панель для аватарок
-            var avatars = new StackPanel 
-            { 
-                Orientation = Orientation.Horizontal,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
+            // Создание Grid_Avatar
+            var grid_avatar = new Grid();
+            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid_avatar.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid_avatar.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid_avatar.HorizontalAlignment = HorizontalAlignment.Center;
 
             // Блок проверки аватарок
             if (_users != null)
@@ -177,7 +179,25 @@ namespace DevTask.View.WorkingField.Page_AllTask
                     // Круглый аватар
                     senderAvatar.Clip = new EllipseGeometry(new Point(senderAvatar.Width / 2, senderAvatar.Height / 2), senderAvatar.Width / 2, senderAvatar.Height / 2);
 
-                    avatars.Children.Add(senderAvatar);
+                    // Добавьте никнейм отправителя под аватаром
+                    var senderName = new TextBlock
+                    {
+                        Text = sender.Username,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(0),
+                        FontSize = 24,
+                        FontFamily = new FontFamily("Inter Medium"),
+                        TextTrimming = TextTrimming.CharacterEllipsis,
+                        MaxWidth = 112
+                    };
+
+                    Grid.SetColumn(senderAvatar, 0);
+                    Grid.SetRow(senderAvatar, 0);
+                    grid_avatar.Children.Add(senderAvatar);
+
+                    Grid.SetColumn(senderName, 0);
+                    Grid.SetRow(senderName, 1);
+                    grid_avatar.Children.Add(senderName);
                 }
 
                 // Текст стрелки
@@ -187,9 +207,12 @@ namespace DevTask.View.WorkingField.Page_AllTask
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 64,
                     Margin = new Thickness(20, 0, 20, 0),
-                    FontFamily = new FontFamily("Inter")
+                    FontFamily = new FontFamily("Inter Medium"),
                 };
-                avatars.Children.Add(arrow);
+
+                Grid.SetColumn(arrow, 1);
+                Grid.SetRow(arrow, 0);
+                grid_avatar.Children.Add(arrow);
 
                 // Принимающий задачу
                 if (!string.IsNullOrEmpty(task.ReceiverId) && _users.TryGetValue(task.ReceiverId, out var receiver))
@@ -205,12 +228,30 @@ namespace DevTask.View.WorkingField.Page_AllTask
                     // Круглый аватар
                     receiverAvatar.Clip = new EllipseGeometry(new Point(receiverAvatar.Width / 2, receiverAvatar.Height / 2), receiverAvatar.Width / 2, receiverAvatar.Height / 2);
 
-                    avatars.Children.Add(receiverAvatar);
+                    // Добавьте никнейм получателя под аватаром
+                    var receiverName = new TextBlock
+                    {
+                        Text = receiver.Username,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(0),
+                        FontSize = 24,
+                        FontFamily = new FontFamily("Inter Medium"),
+                        TextTrimming = TextTrimming.CharacterEllipsis,
+                        MaxWidth = 112
+                    };
+
+                    Grid.SetColumn(receiverAvatar, 2);
+                    Grid.SetRow(receiverAvatar, 0);
+                    grid_avatar.Children.Add(receiverAvatar);
+
+                    Grid.SetColumn(receiverName, 2);
+                    Grid.SetRow(receiverName, 1);
+                    grid_avatar.Children.Add(receiverName);
                 }
             }
 
-            Grid.SetRow(avatars, 2);
-            grid.Children.Add(avatars);
+            Grid.SetRow(grid_avatar, 2);
+            grid.Children.Add(grid_avatar);
 
             border.Child = grid;
 
