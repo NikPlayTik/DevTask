@@ -24,6 +24,7 @@ using DevTask.View.WorkingField.Page_AllTask;
 using DevTask.ViewModel.TaskControl;
 using System.Diagnostics;
 using System.Windows.Threading;
+using System.Windows.Media.Animation;
 
 namespace DevTask.View.WorkingField.Page_AllTask
 {
@@ -121,7 +122,8 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 Height = 384,
                 MinWidth = 381,
                 MaxWidth = 381,
-                HorizontalAlignment = HorizontalAlignment.Left
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Tag = false // Используется для отслеживания состояния увеличения/уменьшения
             };
 
             var grid = new Grid();
@@ -155,12 +157,28 @@ namespace DevTask.View.WorkingField.Page_AllTask
 
             // Создание Grid_Avatar
             var grid_avatar = new Grid();
-            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            grid_avatar.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid_avatar.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition 
+            { 
+                Width = GridLength.Auto 
+            });
+            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition 
+            { 
+                Width = GridLength.Auto 
+            });
+            grid_avatar.ColumnDefinitions.Add(new ColumnDefinition 
+            { 
+                Width = GridLength.Auto 
+            });
+            grid_avatar.RowDefinitions.Add(new RowDefinition 
+            { 
+                Height = GridLength.Auto 
+            });
+            grid_avatar.RowDefinitions.Add(new RowDefinition 
+            { 
+                Height = GridLength.Auto 
+            });
             grid_avatar.HorizontalAlignment = HorizontalAlignment.Center;
+            grid_avatar.VerticalAlignment = VerticalAlignment.Bottom;
 
             // Блок проверки аватарок
             if (_users != null)
@@ -287,7 +305,63 @@ namespace DevTask.View.WorkingField.Page_AllTask
             };
             border.ContextMenu.Items.Add(deleteMenuItem);
 
+            // Добавление обработчика события MouseLeftButtonDown
+            border.MouseLeftButtonDown += (sender, e) =>
+            {
+                bool isExpanded = border.Tag != null && (bool)border.Tag;
+
+                if (isExpanded)
+                {
+                    AnimateTaskBorder(border, 381, 384);
+                }
+                else
+                {
+                    AnimateTaskBorder(border, 762, 768);
+                }
+
+                border.Tag = !isExpanded;
+            };
+
             return border;
+        }
+
+        private void AnimateTaskBorder(Border border, double newWidth, double newHeight)
+        {
+            var widthAnimation = new DoubleAnimation
+            {
+                To = newWidth,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+            var heightAnimation = new DoubleAnimation
+            {
+                To = newHeight,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            // Устанавливаем начальные значения для анимации
+            border.Width = border.ActualWidth;
+            border.Height = border.ActualHeight;
+
+            border.BeginAnimation(WidthProperty, widthAnimation);
+            border.BeginAnimation(HeightProperty, heightAnimation);
+
+            // Анимация для внутренних элементов, чтобы все содержимое стало видимым
+            var grid = border.Child as Grid;
+            if (grid != null)
+            {
+                foreach (var child in grid.Children)
+                {
+                    if (child is TextBlock textBlock)
+                    {
+                        var maxHeightAnimation = new DoubleAnimation
+                        {
+                            To = newHeight - 100, // Учитываем отступы и другие элементы внутри
+                            Duration = TimeSpan.FromSeconds(0.5)
+                        };
+                        textBlock.BeginAnimation(TextBlock.MaxHeightProperty, maxHeightAnimation);
+                    }
+                }
+            }
         }
 
         // Метод для обработки команды "Отправить на проверку"

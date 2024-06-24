@@ -38,6 +38,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="CaretBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="White"/>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <!--Стиль для блока ввода пароля-->
@@ -60,6 +65,11 @@
                             <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                         </Border>
                     </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CaretBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="White"/>
                 </Setter.Value>
             </Setter>
         </Style>
