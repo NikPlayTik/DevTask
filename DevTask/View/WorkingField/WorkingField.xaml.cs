@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Firebase.Database;
 
 namespace DevTask.View.WorkingField
 {
@@ -26,6 +27,8 @@ namespace DevTask.View.WorkingField
             _mainFrame = mainFrame;
             _currentUserId = currentUserId;
             _currentProjectId = currentProjectId;
+
+            LoadProjects();
         }
 
         // Выход с аккаунта
@@ -127,5 +130,17 @@ namespace DevTask.View.WorkingField
             var allTasksPage = new Page_AllTasks(_currentUserId);
             StatusFrame.Content = allTasksPage;
         }
+
+        // Загрузка проектов пользователя и заполнения ComboBox
+        private async void LoadProjects()
+        {
+            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+            var projects = await firebaseClient.Child("Projects").OnceAsync<Project>();
+
+            var userProjects = projects.Where(p => p.Object.Members.Contains(_currentUserId)).Select(p => p.Object.Name).ToList();
+
+            ProjectsComboBox.ItemsSource = userProjects;
+        }
+
     }
 }

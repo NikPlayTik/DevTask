@@ -316,7 +316,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
                 }
                 else
                 {
-                    AnimateTaskBorder(border, 762, 768);
+                    AnimateTaskBorder(border, 381, 768);
                 }
 
                 border.Tag = !isExpanded;

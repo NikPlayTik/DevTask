@@ -44,6 +44,11 @@
             <Label Grid.Column="0" Grid.Row="0" x:Name="GreetingLabel" Content="" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Padding="2"/>
         </Viewbox>
 
+        <!-- Выпадающий список для проектов которых учавствует пользователь -->
+        <Viewbox Grid.Column="2" Grid.Row="0" MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
+            <ComboBox x:Name="ProjectsComboBox"  FontSize="40"/>
+        </Viewbox>
+        
         <!-- Календарь -->
         <Viewbox Grid.Column="0" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Left">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
