@@ -8,6 +8,35 @@
       d:DesignHeight="850" d:DesignWidth="1800"
       Title="Page_TaskTransfer" Background="Transparent">
 
+    <Page.Resources>
+        <DataTemplate x:Key="ComboBoxItemTemplate">
+            <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" MaxWidth="241">
+                <TextBlock.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="{Binding}" />
+                    </ToolTip>
+                </TextBlock.ToolTip>
+        </TextBlock>
+        </DataTemplate>
+
+        <Style x:Key="CustomComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" MaxWidth="241" HorizontalAlignment="Left">
+                            <ContentPresenter HorizontalAlignment="Left" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="MaxWidth" Value="181"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <ScrollViewer x:Name="MainScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid>
             <Grid.RowDefinitions>
@@ -55,7 +84,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Viewbox MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
-                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" />
+                    <ComboBox x:Name="TaskTransferComboBox" Style="{StaticResource CustomComboBoxStyle}" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" ItemTemplate="{StaticResource ComboBoxItemTemplate}" FontSize="40"/>
                 </Viewbox>
             </Grid>
 
