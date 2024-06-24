@@ -43,15 +43,9 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
             var project = await firebaseClient.Child("Projects").Child(_currentProjectId).OnceSingleAsync<Project>();
             var users = await firebaseClient.Child("Users").OnceAsync<Model.ClassUser.User>();
 
-            var filteredUsers = users.Where(u => project.Members.Contains(u.Key)).Select(u => new
-            {
-                Username = u.Object.Username,
-                UserId = u.Key
-            }).ToList();
+            var filteredUsers = users.Where(u => project.Members.Contains(u.Key)).Select(u => u.Object.Username).ToList();
 
             TaskTransferComboBox.ItemsSource = filteredUsers;
-            TaskTransferComboBox.DisplayMemberPath = "Username";
-            TaskTransferComboBox.SelectedValuePath = "UserId";
         }
 
         private void TaskDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
