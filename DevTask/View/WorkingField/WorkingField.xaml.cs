@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Firebase.Database;
+using System.Diagnostics;
 
 namespace DevTask.View.WorkingField
 {
@@ -127,19 +128,54 @@ namespace DevTask.View.WorkingField
         // Обработчик событий для кнопки "Все задачи"
         private void AllTasksButton_Click(object sender, RoutedEventArgs e)
         {
-            var allTasksPage = new Page_AllTasks(_currentUserId);
+            var allTasksPage = new Page_AllTasks(_currentProjectId, _currentUserId);
             StatusFrame.Content = allTasksPage;
         }
 
         // Загрузка проектов пользователя и заполнения ComboBox
         private async void LoadProjects()
         {
-            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
-            var projects = await firebaseClient.Child("Projects").OnceAsync<Project>();
+            try
+            {
+                var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+                var projects = await firebaseClient.Child("Projects").OnceAsync<Project>();
 
-            var userProjects = projects.Where(p => p.Object.Members.Contains(_currentUserId)).Select(p => p.Object.Name).ToList();
+                var userProjects = projects.Where(p => p.Object.Members.Contains(_currentUserId)).Select(p => p.Object).ToList();
 
-            ProjectsComboBox.ItemsSource = userProjects;
+                ProjectsComboBox.ItemsSource = userProjects;
+                ProjectsComboBox.DisplayMemberPath = "Name";
+                ProjectsComboBox.SelectedValuePath = "Id";
+
+                Debug.WriteLine($"Загружено {userProjects.Count} проектов.");
+                foreach (var project in userProjects)
+                {
+                    Debug.WriteLine($"Проект: {project.Name}, ID: {project.Id}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке проектов: {ex.Message}");
+            }
+        }
+
+        private void ProjectsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProjectsComboBox.SelectedValue != null)
+            {
+                var selectedProjectId = ProjectsComboBox.SelectedValue.ToString();
+                Debug.WriteLine($"Выбран проект с ID: {selectedProjectId}");
+                LoadTasksForSelectedProject(selectedProjectId);
+            }
+            else
+            {
+                Debug.WriteLine("Проект не выбран.");
+            }
+        }
+
+        private void LoadTasksForSelectedProject(string projectId)
+        {
+            var allTasksPage = new Page_AllTasks(projectId, _currentUserId);
+            StatusFrame.Content = allTasksPage;
         }
 
     }

@@ -34,15 +34,19 @@ namespace DevTask.View.WorkingField.Page_AllTask
         private FirebaseClient _client;
         private Dictionary<string, User> _users;
         private string _projectId;
+        private string _currentUserId;
 
-        public Page_AllTasks(string projectId)
+        public Page_AllTasks(string projectId, string currentUserId)
         {
             InitializeComponent();
             _client = new FirebaseClient(FirebaseAppUri);
             _projectId = projectId;
+            _currentUserId = currentUserId;
+
+            Debug.WriteLine($"Текущий пользователь UserId: {_currentUserId}");
+            Debug.WriteLine($"ProjectId: {_projectId}");
 
             LoadData();
-            Debug.WriteLine(LoadTasks());
         }
 
         private async void LoadData()
@@ -77,25 +81,47 @@ namespace DevTask.View.WorkingField.Page_AllTask
 
         private async Task<List<TaskModel>> LoadTasks()
         {
+            Debug.WriteLine($"Загрузка задачи для ProjectId: {_projectId}");
             try
             {
-                var tasks = await _client.Child("Tasks").OnceAsync<TaskModel>();
+                var allTasks = await _client
+                    .Child("Tasks")
+                    .OrderBy("ProjectId")
+                    .EqualTo(_projectId)
+                    .OnceAsync<TaskModel>();
 
-                // Выводим все задачи для отладки
-                Debug.WriteLine("Все задачи:");
+                var tasks = allTasks.Select(item => new TaskModel
+                {
+                    Id = item.Key,
+                    ProjectId = item.Object.ProjectId,
+                    Description = item.Object.Description,
+                    ReceiverId = item.Object.ReceiverId,
+                    SenderId = item.Object.SenderId
+                }).ToList();
+
+                if (tasks.Count == 0)
+                {
+                    Debug.WriteLine("Задачи не найдены для данного ProjectId.");
+                }
+                else
+                {
+                    Debug.WriteLine($"Найдено {tasks.Count} задач для ProjectId: {_projectId}");
+                }
+
+                Debug.WriteLine("Все задачи для проекта:");
                 foreach (var task in tasks)
                 {
-                    Debug.WriteLine($"Задача ID: {task.Key}, ProjectId: {task.Object.ProjectId}, Description: {task.Object.Description}");
+                    Debug.WriteLine($"Задача ID: {task.Id}, ProjectId: {task.ProjectId}, Description: {task.Description}");
                 }
 
                 TaskStackPanel.Children.Clear();
 
                 foreach (var task in tasks)
                 {
-                    AddTaskToView(task.Object);
+                    AddTaskToView(task);
                 }
 
-                return tasks.Select(t => t.Object).ToList();
+                return tasks;
             }
             catch (Exception ex)
             {
@@ -107,7 +133,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
         private void AddTaskToView(TaskModel task)
         {
             var taskControl = CreateTaskControl(task);
-            {
+            TaskStackPanel.Children.Add(taskControl);
         }
 
         private Border CreateTaskControl(TaskModel task)
