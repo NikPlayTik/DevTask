@@ -135,8 +135,12 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 return;
             }
 
-            var selectedUser = (dynamic)TaskTransferComboBox.SelectedItem;
-            string selectedUserId = selectedUser.UserId;
+            var selectedUsername = (string)TaskTransferComboBox.SelectedItem;
+            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+            var users = await firebaseClient.Child("Users").OnceAsync<Model.ClassUser.User>();
+            var selectedUser = users.FirstOrDefault(u => u.Object.Username == selectedUsername);
+            string selectedUserId = selectedUser?.Key;
+
 
             string description = DescriptionTextBox.Text;
             DateTime? dueDate = TaskDatePicker.SelectedDate;
@@ -154,7 +158,7 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
                 ImageUrl = imageUrl
             };
 
-            var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
+            //var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
             await firebaseClient.Child("Tasks").PostAsync(newTask);
 
             MessageBox.Show("Задача успешно передана.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);

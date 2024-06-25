@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DevTask.Model.ClassUser;
 using DevTask.Model.ClassProject;
+using DevTask.View.CustomDialog;
 using Firebase.Database.Query;
 
 namespace DevTask.View.WindowAddProjects
