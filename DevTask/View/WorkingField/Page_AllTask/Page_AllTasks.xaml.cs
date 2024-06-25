@@ -107,7 +107,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
         private void AddTaskToView(TaskModel task)
         {
             var taskControl = CreateTaskControl(task);
-            TaskStackPanel.Children.Add(taskControl);
+            {
         }
 
         private Border CreateTaskControl(TaskModel task)
