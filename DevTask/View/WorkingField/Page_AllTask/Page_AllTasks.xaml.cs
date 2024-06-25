@@ -57,7 +57,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
 
             if (tasks == null || tasks.Count == 0)
             {
-                MessageBox.Show("Для этого проекта не найдено ни одной задачи.");
+                CustomDialog.CustomDialog.Show("Для этого проекта не найдено ни одной задачи", Brushes.Red);
             }
             else
             {
@@ -75,7 +75,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке пользователей: {ex.Message}");
+                CustomDialog.CustomDialog.Show($"Ошибка при загрузке пользователей: {ex.Message}", Brushes.Red);
             }
         }
 
@@ -125,7 +125,7 @@ namespace DevTask.View.WorkingField.Page_AllTask
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке задач: {ex.Message}");
+                CustomDialog.CustomDialog.Show($"Ошибка при загрузке задач: {ex.Message}", Brushes.Red);
                 return null;
             }
         }

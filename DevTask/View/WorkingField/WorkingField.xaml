@@ -46,9 +46,16 @@
 
         <!-- Выпадающий список для проектов которых учавствует пользователь -->
         <Viewbox Grid.Column="2" Grid.Row="0" MinWidth="241" MaxWidth="241" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
-            <ComboBox x:Name="ProjectsComboBox"  FontSize="40" SelectionChanged="ProjectsComboBox_SelectionChanged"/>
+            <ComboBox x:Name="ProjectsComboBox" FontSize="40" SelectionChanged="ProjectsComboBox_SelectionChanged"/>
         </Viewbox>
-        
+
+        <!-- Кнопка для добавления проекта -->
+        <Viewbox Grid.Column="1" Grid.Row="0" MinWidth="62.88" MaxWidth="62.88" MinHeight="62.88" MaxHeight="62.88" HorizontalAlignment="Right">
+            <Button x:Name="AddProjectButton" Background="#E09C3F" Width="62.88" Height="62.88" Style="{StaticResource NoChromeButtonStyle}" Click="AddProjectButton_Click">
+                <Image Source="/Model/Resources/Image-Window/Page-WorkingField/Plus.png" Width="30" Height="30"/>
+            </Button>
+        </Viewbox>
+
         <!-- Календарь -->
         <Viewbox Grid.Column="0" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Left">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">

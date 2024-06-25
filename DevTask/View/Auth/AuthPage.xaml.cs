@@ -80,7 +80,7 @@ namespace DevTask.View.Auth
 
         private void ForgotPasswordButton_Click(object sender, RoutedEventArgs e)
         {
-            CustomDialog.CustomDialog.Show("Фифу тебе, а не восстановление пароля)", Brushes.Green);
+            CustomDialog.CustomDialog.Show("Нет восстановления пароля)", Brushes.Green);
         }
     }
 }

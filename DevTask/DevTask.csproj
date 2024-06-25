@@ -25,6 +25,7 @@
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\Ganta.png" />
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\LogoutAccount.png" />
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\MyTasks.png" />
+    <None Remove="Model\Resources\Image-Window\Page-WorkingField\Plus.png" />
     <None Remove="Model\Resources\Image-Window\Page-WorkingField\TaskTransfer.png" />
     <None Remove="Model\Resources\Image-Window\Window-Auth\Finger.png" />
     <None Remove="Model\Resources\Image-Window\Window-Auth\Triangle.png" />
@@ -39,6 +40,7 @@
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\Ganta.png" />
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\LogoutAccount.png" />
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\MyTasks.png" />
+    <Resource Include="Model\Resources\Image-Window\Page-WorkingField\Plus.png" />
     <Resource Include="Model\Resources\Image-Window\Page-WorkingField\TaskTransfer.png" />
     <Resource Include="Model\Resources\Image-Window\Window-Auth\Finger.png" />
   </ItemGroup>
@@ -47,7 +49,6 @@
     <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
     <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
-    <PackageReference Include="MaterialDesignThemes.Wpf" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

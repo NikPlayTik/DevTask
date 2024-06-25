@@ -1,5 +1,5 @@
 ﻿using DevTask.View.Auth;
-using DevTask.View.WindowAddProjects;
+using DevTask.View.AddProject;
 using DevTask.View.WorkingField;
 using DevTask.Model.ClassProject;
 using DevTask.Model.ClassTask;
@@ -154,7 +154,7 @@ namespace DevTask.View.WorkingField
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке проектов: {ex.Message}");
+                CustomDialog.CustomDialog.Show($"Ошибка при загрузке проектов: {ex.Message}", Brushes.Red);
             }
         }
 
@@ -178,5 +178,10 @@ namespace DevTask.View.WorkingField
             StatusFrame.Content = allTasksPage;
         }
 
+        private void AddProjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addProjectPage = new Page_AddProject(_currentUserId, _mainFrame);
+            StatusFrame.Content = addProjectPage;
+        }
     }
 }

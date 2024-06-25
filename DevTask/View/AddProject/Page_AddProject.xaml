@@ -1,0 +1,40 @@
+﻿<Page x:Class="DevTask.View.AddProject.Page_AddProject"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DevTask.View.AddProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="850" d:DesignWidth="1800"
+      Title="Page_AddProject" Background="Transparent">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Название проекта" Style="{StaticResource DefaultText}" FontSize="40" VerticalAlignment="Bottom"/>
+        <TextBox Grid.Row="1" Grid.Column="0" x:Name="ProjectNameTextBox" Style="{StaticResource CustomTextBox}" MaxLength="25" TextChanged="ProjectNameTextBox_TextChanged"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Пригласить пользователей (через запятую)" Style="{StaticResource DefaultText}" FontSize="40" VerticalAlignment="Bottom"/>
+        
+        <!-- вьюбокс исправить -->
+        <Viewbox Grid.Row="3" Grid.Column="0" MinWidth="2150" MinHeight="50" MaxWidth="2150" MaxHeight="50" HorizontalAlignment="Left">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBox x:Name="InviteUsersTextBox" Style="{StaticResource CustomTextBox}" TextChanged="InviteUsersTextBox_TextChanged" TextWrapping="Wrap" MinWidth="2150" MinHeight="50" MaxWidth="2150" MaxHeight="50"/>
+            </ScrollViewer>
+        </Viewbox>
+        
+
+        <Button Grid.Row="6" Grid.Column="0" MaxHeight="120" MinHeight="120" Content="Создать проект" FontFamily="Cygre Medium" FontSize="35" Width="450" Click="CreateProjectButton_Click" Style="{StaticResource SelectedButtonStyle}"/>
+    </Grid>
+</Page>

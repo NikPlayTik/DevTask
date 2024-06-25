@@ -41,7 +41,7 @@ namespace DevTask.View.WindowAddProjects
 
             if (!string.IsNullOrEmpty(projectId))
             {
-                MessageBox.Show("Проект создан успешно!");
+                CustomDialog.CustomDialog.Show("Проект создан успешно!", Brushes.Green);
                 this.Close();
             }
         }

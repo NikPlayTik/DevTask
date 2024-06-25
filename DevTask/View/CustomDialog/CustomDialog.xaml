@@ -21,7 +21,9 @@
             <Grid Grid.Row="0" Background="#0D2746" MouseLeftButtonDown="Grid_MouseLeftButtonDown"/>
 
             <!-- Основные элементы -->
-            <TextBlock Width="360" TextWrapping="Wrap" Grid.Row="1" Name="MessageLabel" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cygre Medium" FontSize="30" Text="Пример текста такой будет" Foreground="White"/>
+            <ScrollViewer Grid.Row="1">
+                <TextBlock Width="360" TextWrapping="Wrap" Name="MessageLabel" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cygre Medium" FontSize="30" Text="Пример текста такой будет" Foreground="White"/>
+            </ScrollViewer>
             <Button Grid.Row="2" Content="ОК" HorizontalAlignment="Right" VerticalAlignment="Center" Width="86" Height="46" Click="OkButton_Click" Margin="0, 0, 30, 0" Style="{StaticResource DialogButtonStyle}"/>
         </Grid>
     </Border>

@@ -131,7 +131,7 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
         {
             if (TaskTransferComboBox.SelectedItem == null)
             {
-                MessageBox.Show("Пожалуйста, выберите пользователя для передачи задачи.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                CustomDialog.CustomDialog.Show("Пожалуйста, выберите пользователя для передачи задачи!", Brushes.Red);
                 return;
             }
 
@@ -161,14 +161,14 @@ namespace DevTask.View.WorkingField.Page_TaskTransfer
             //var firebaseClient = new FirebaseClient("https://devtaskdb-default-rtdb.europe-west1.firebasedatabase.app/");
             await firebaseClient.Child("Tasks").PostAsync(newTask);
 
-            MessageBox.Show("Задача успешно передана.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            CustomDialog.CustomDialog.Show("Задача успешно передана", Brushes.Green);
         }
 
         private async Task<string> UploadImageToFirebaseStorage(string imagePath)
         {
             if (string.IsNullOrEmpty(imagePath))
             {
-                MessageBox.Show("Пожалуйста, выберите изображение.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                CustomDialog.CustomDialog.Show("Пожалуйста, выберите изображение", Brushes.Red);
                 return null;
             }
 
