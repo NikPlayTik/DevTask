@@ -135,14 +135,21 @@ namespace DevTask.View.AddProject
             var projectResult = await _client.Child("Projects").PostAsync(project);
             var projectId = projectResult.Key;
 
-            // Теперь добавляем проект в списки проектов пользователей
+            // Присваиваем идентификатор проекту
             project.Id = projectId;
+
+            // Обновляем проект с новым идентификатором
+            await _client.Child("Projects").Child(projectId).PutAsync(project);
+
+            // Теперь добавляем проект в списки проектов пользователей
             foreach (var username in invitedUsers)
             {
                 var user = users.FirstOrDefault(u => u.Object.Username == username);
                 if (user != null)
                 {
-                    await _client.Child("Users").Child(user.Object.Id).Child("Projects").PostAsync(projectId);
+                    // Обновляем данные пользователя
+                    var userProjects = new Dictionary<string, string> { { projectId, projectId } };
+                    await _client.Child("Users").Child(user.Object.Id).Child("Projects").PatchAsync(userProjects);
                 }
             }
 
