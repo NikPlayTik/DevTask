@@ -142,6 +142,12 @@ namespace DevTask.View.WorkingField
 
                 var userProjects = projects.Where(p => p.Object.Members.Contains(_currentUserId)).Select(p => p.Object).ToList();
 
+                // Инициализируем Id для каждого проекта
+                foreach (var project in userProjects)
+                {
+                    project.Id = projects.FirstOrDefault(p => p.Object == project)?.Key;
+                }
+
                 ProjectsComboBox.ItemsSource = userProjects;
                 ProjectsComboBox.DisplayMemberPath = "Name";
                 ProjectsComboBox.SelectedValuePath = "Id";
@@ -160,9 +166,9 @@ namespace DevTask.View.WorkingField
 
         private void ProjectsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ProjectsComboBox.SelectedValue != null)
+            if (ProjectsComboBox.SelectedItem is Project selectedProject)
             {
-                var selectedProjectId = ProjectsComboBox.SelectedValue.ToString();
+                var selectedProjectId = selectedProject.Id;
                 Debug.WriteLine($"Выбран проект с ID: {selectedProjectId}");
                 LoadTasksForSelectedProject(selectedProjectId);
             }
