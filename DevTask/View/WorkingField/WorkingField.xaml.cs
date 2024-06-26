@@ -170,6 +170,7 @@ namespace DevTask.View.WorkingField
             {
                 var selectedProjectId = selectedProject.Id;
                 Debug.WriteLine($"Выбран проект с ID: {selectedProjectId}");
+                _currentProjectId = selectedProjectId;
                 LoadTasksForSelectedProject(selectedProjectId);
             }
             else
